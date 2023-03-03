@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "prod": "aozorawebclient"
+  },
+  "targets": {
+    "nostrtransport": {
+      "hosting": {
+        "stg": [
+          "aozora-stg"
+        ],
+        "prod": [
+          "aozorawebclient"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

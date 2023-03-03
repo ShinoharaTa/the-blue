@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # - name: nuxt setup
+      #   run: echo "${{ secrets.ENV_PROD }}" > .env
+      #   working-directory: ./
+
+      - name: nuxt generate
+        run: |
+          yarn
+          yarn generate
+        working-directory: ./
+
+      - name: firebase setup
+        run: |
+          npm install -g firebase-tools
+          npm install
+        working-directory: ./
+
+      - name: firebase deploy
+        run: |
+          firebase deploy --project nostrtransport --only hosting:prod --token=${{ secrets.FIREBASE_TOKEN }}
+        working-directory: ./

@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  nuxt:
+    build: ./docker/nuxt
+    container_name: aozora-nuxt
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/var/www
+    tty: true
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+    command: /bin/bash
+    # command: sh -c "yarn install && yarn dev"

@@ -1,7 +1,5 @@
 # Aozora
 
-To Nostr client transformer from note &amp; userpub key
-
 
 ```
 docker compose build --no-cache

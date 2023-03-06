@@ -10,12 +10,17 @@ export interface atProtoInterface {
 
 class atproto implements atProtoInterface {
   private agent: AtpAgent
+  private me: any
+  private ctx
   constructor(ctx: Context) {
+    this.ctx = ctx
     this.agent = new AtpAgent({
       service: 'https://bsky.social',
       persistSession: (evt, sess) => {
-        // ctx.$cookies.set(COOKIE_KEY, JSON.stringify(sess), { maxAge: 60  *  60  *  24  *  7 });
-        // localStorage.setItem(SES_LOCAL_STORAGE_KEY, JSON.stringify(sess))
+        console.log('** 1:', typeof sess)
+        this.ctx.app.$cookies.set(COOKIE_KEY, sess, {
+          maxAge: 60 * 60 * 24 * 7,
+        })
       },
     })
   }
@@ -26,8 +31,34 @@ class atproto implements atProtoInterface {
         identifier: identifier,
         password: password,
       })
+      this.me = data
       return success ? data : null
     } catch {
+      return null
+    }
+  }
+  async hasSession() {
+    const session = (() => {
+      const sessStr: AtpSessionData = this.ctx.app.$cookies.get(COOKIE_KEY)
+      if (!sessStr) {
+        return null
+      }
+      try {
+        return sessStr
+      } catch {
+        return null
+      }
+    })()
+    if (!session) {
+      return { success: false }
+    }
+
+    const { success, data } = await this.agent.resumeSession(session)
+    try {
+      this.me = data
+      return success ? data : null
+    } catch {
+      this.ctx.app.$router.push('/login')
       return null
     }
   }

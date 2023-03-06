@@ -19,8 +19,9 @@ export default Vue.extend({
       timeline: [],
     }
   },
-  beforeMount() {
-    this.getTimeline({ limit: 100 })
+  async beforeMount() {
+    await this.$atp.hasSession();
+    await this.getTimeline()
   },
   methods: {
     getTimeline: async function () {

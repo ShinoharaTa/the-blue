@@ -5,6 +5,12 @@ const nuxtConfig: NuxtConfig = {
   ssr: false,
   target: 'static',
 
+  publicRuntimeConfig: {
+    env: process.env.ENV || "",
+    email: process.env.TEST_EMAIL,
+    pass: process.env.TEST_PASSWORD,
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Aozora - bluesky web client (unofficial)',
@@ -61,6 +67,7 @@ const nuxtConfig: NuxtConfig = {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    'cookie-universal-nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -72,10 +79,7 @@ const nuxtConfig: NuxtConfig = {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   buildDir: 'public',
   build: {
-    transpile: [
-      /@atproto\/api/,
-      /typed-vuex/,
-    ],
+    transpile: [/@atproto\/api/, /typed-vuex/],
   },
   generate: {
     dir: 'public',

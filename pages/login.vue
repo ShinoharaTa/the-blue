@@ -6,7 +6,7 @@
           type="text"
           v-model="identifier"
           class="form-control"
-          placeholder="真名を告げよ"
+          placeholder="email"
         />
       </div>
       <div class="mt-3">
@@ -14,7 +14,7 @@
           type="password"
           v-model="password"
           class="form-control"
-          placeholder="あいことば"
+          placeholder="password"
         />
       </div>
       <div class="mt-3 text-center form-text text-danger">
@@ -30,12 +30,25 @@
 <script lang="ts">
 import Vue from 'vue'
 
+interface LoginForm {
+  identifier: string
+  password: string
+  error: string
+}
+
 export default Vue.extend({
-  data() {
+  data(): LoginForm {
     return {
       identifier: '',
       password: '',
       error: '',
+    }
+  },
+  mounted() {
+    if (this.$config.env === 'local') {
+      this.identifier = this.$config.email
+      this.password = this.$config.pass
+      console.log("うんこ")
     }
   },
   methods: {

@@ -36,6 +36,9 @@
         ]
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        ".nuxt",
+        "public",
+        "coverage"
     ]
 }

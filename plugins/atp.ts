@@ -1,44 +1,50 @@
-import { Plugin } from '@nuxt/types'
-
+import { Plugin, Context } from '@nuxt/types'
 import { AtpAgent, AtpSessionData } from '@atproto/api'
-const SES_LOCAL_STORAGE_KEY = 'sess'
 
-const agent = new AtpAgent({
-  service: 'https://bsky.social',
-  persistSession: (evt, sess) => {
-    localStorage.setItem(SES_LOCAL_STORAGE_KEY, JSON.stringify(sess))
-  },
-})
-// let self = null
+const COOKIE_KEY = 'AozoraUserData'
 
-// createSession: async function (identifier, password) {
-//   try {
-//     const { success, data } = await agent.login({
-//       identifier: identifier,
-//       password: password,
-//     })
-//     // if (success) {
-//     //   self = data
-//     // }
-//     return { success }
-//   } catch {
-//     return { success: false }
-//   }
-// },
+export interface atProtoInterface {
+  login(identifier: string, password: string): any
+  getTimeline(params: { limit?: number; cursor?: string }): any
+}
 
-const atp = {
-  login: async (identifier: string, password: string) => {
+class atproto implements atProtoInterface {
+  private agent: AtpAgent
+  constructor(ctx: Context) {
+    this.agent = new AtpAgent({
+      service: 'https://bsky.social',
+      persistSession: (evt, sess) => {
+        // ctx.$cookies.set(COOKIE_KEY, JSON.stringify(sess), { maxAge: 60  *  60  *  24  *  7 });
+        // localStorage.setItem(SES_LOCAL_STORAGE_KEY, JSON.stringify(sess))
+      },
+    })
+  }
+
+  async login(identifier: string, password: string) {
     try {
-      const {success, data} = await agent.login({ identifier: identifier, password: password })
-      return success ? data : null;
+      const { success, data } = await this.agent.login({
+        identifier: identifier,
+        password: password,
+      })
+      return success ? data : null
     } catch {
-      return null;
+      return null
     }
-  },
+  }
+  async getTimeline(params: { limit?: number; cursor?: string }) {
+    try {
+      const { success, data } = await this.agent.api.app.bsky.feed.getTimeline(
+        params
+      )
+      return success ? data : null
+    } catch {
+      return null
+    }
+  }
 }
 
-const plugin: Plugin = (context, inject) => {
-  inject("atp", atp)
+const atp: Plugin = (context: Context, inject) => {
+  inject('atp', new atproto(context))
 }
 
-export default plugin
+export default atp

@@ -28,7 +28,12 @@ const agent = new AtpAgent({
 
 const atp = {
   login: async (identifier: string, password: string) => {
-    return await agent.login({ identifier: identifier, password: password })
+    try {
+      const {success, data} = await agent.login({ identifier: identifier, password: password })
+      return success ? data : null;
+    } catch {
+      return null;
+    }
   },
 }
 

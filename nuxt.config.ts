@@ -70,9 +70,12 @@ const nuxtConfig: NuxtConfig = {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  buildDir:"public",
+  buildDir: 'public',
   build: {
-    transpile: [/@atproto\/api/]
+    transpile: [
+      /@atproto\/api/,
+      /typed-vuex/,
+    ],
   },
   generate: {
     dir: 'public',

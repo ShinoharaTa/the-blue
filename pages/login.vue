@@ -17,7 +17,10 @@
           placeholder="あいことば"
         />
       </div>
-      <div class="mt-3 d-grid">
+      <div class="mt-3 text-center form-text text-danger">
+        {{ this.error }}
+      </div>
+      <div class="mt-2 d-grid">
         <button @click="login" class="btn btn-primary">はばたけッ！！！</button>
       </div>
     </div>
@@ -32,11 +35,17 @@ export default Vue.extend({
     return {
       identifier: '',
       password: '',
+      error: '',
     }
   },
   methods: {
     async login() {
       let res = await this.$atp.login(this.identifier, this.password)
+      if (res) {
+        this.$router.push('/')
+      } else {
+        this.error = 'ログインできませんでした'
+      }
       console.log('** debug', res)
     },
   },

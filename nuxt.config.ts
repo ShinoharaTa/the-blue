@@ -67,7 +67,11 @@ const nuxtConfig: NuxtConfig = {
     ['@nuxtjs/fontawesome', {
       component: 'fontAwesome',
       suffix: true,
-    }]
+    }],
+    ["@nuxtjs/moment", {
+      defaultLocale: 'ja',
+      locales: ['ja'],
+    }],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

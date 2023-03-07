@@ -32,7 +32,8 @@
         ],
         "types": [
             "@types/node",
-            "@nuxt/types"
+            "@nuxt/types",
+            "@nuxtjs/moment"
         ]
     },
     "exclude": [

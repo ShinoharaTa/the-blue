@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="icon.png"
+   inkscape:export-xdpi="65.024002"
+   inkscape:export-ydpi="65.024002"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   sodipodi:docname="IconData.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#0089a7"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="1.1893044"
+     inkscape:cx="324.97988"
+     inkscape:cy="376.27036"
+     inkscape:window-width="2090"
+     inkscape:window-height="1332"
+     inkscape:window-x="1061"
+     inkscape:window-y="93"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid59"
+       spacingx="2"
+       spacingy="2"
+       empspacing="5"
+       units="mm" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:93.6129px;font-family:Georgia;-inkscape-font-specification:Georgia;letter-spacing:-8.10274px;fill:#ff00ff;stroke-width:0.305259"
+       x="30.947268"
+       y="128.15317"
+       id="text277-9"
+       transform="scale(0.91150026,1.0970924)"><tspan
+         sodipodi:role="line"
+         x="30.947268"
+         y="128.15317"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:93.6129px;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke-width:0.305259"
+         id="tspan279-2">Blue</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:56.6819px;font-family:Georgia;-inkscape-font-specification:Georgia;letter-spacing:-5.03645px;fill:#ff00ff;stroke-width:0.212556"
+       x="14.795471"
+       y="122.14776"
+       id="text277"
+       transform="scale(1.8353826,0.54484553)"><tspan
+         sodipodi:role="line"
+         x="14.795471"
+         y="122.14776"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:56.6819px;font-family:'MS PMincho';-inkscape-font-specification:'MS PMincho';fill:#ffffff;stroke-width:0.212556"
+         id="tspan279">The</tspan></text>
+  </g>
+</svg>

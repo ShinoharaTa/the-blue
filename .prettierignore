@@ -94,3 +94,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# sw.js対応
+static

@@ -16,29 +16,43 @@
       <div class="">
         <div v-html="urlReplaceText"></div>
       </div>
+      <div class="d-flex align-items-center">
+        <comment :reaction="note.post.replyCount" />
+        <repost :reaction="note.post.repostCount" :action="!!note.post.viewer.repost" />
+        <favorite :reaction="note.post.upvoteCount" :action="!!note.post.viewer.upvote" />
+      </div>
       <div>
-        <!-- {{ note.post.record.text }} -->
+        {{ note }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import comment from '@/components/icons/comment.vue'
+import repost from '@/components/icons/repost.vue'
+import favorite from '@/components/icons/favorite.vue'
+
 export default {
+  components: {
+    comment,
+    repost,
+    favorite,
+  },
   props: {
     note: {},
   },
   computed: {
     urlReplaceText: function () {
-      const text = this.note.post.record.text;
-      const regex = /(https?:\/\/[^\s]+)/g;
+      const text = this.note.post.record.text
+      const regex = /(https?:\/\/[^\s]+)/g
       const processedText = text.replace(regex, (url) => {
-        const shortUrl = url.length > 20 ? url.slice(0, 20) + "..." : url;
-        return ` <a href="${url}">${shortUrl}</a> `;
-      });
+        const shortUrl = url.length > 20 ? url.slice(0, 20) + '...' : url
+        return ` <a href="${url}">${shortUrl}</a> `
+      })
       return processedText
-    }
-  }
+    },
+  },
 }
 </script>
 

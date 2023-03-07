@@ -1,4 +1,5 @@
 import { NuxtConfig } from '@nuxt/types'
+import * as FontAwesome from './libs/fontawesome'
 
 const nuxtConfig: NuxtConfig = {
   // Target: https://go.nuxtjs.dev/config-target
@@ -61,7 +62,13 @@ const nuxtConfig: NuxtConfig = {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxt/typescript-build'],
+  buildModules: [
+    '@nuxt/typescript-build',
+    ['@nuxtjs/fontawesome', {
+      component: 'fontAwesome',
+      suffix: true,
+    }]
+  ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -69,6 +76,14 @@ const nuxtConfig: NuxtConfig = {
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
   ],
+
+  fontawesome: {
+    icons: {
+      solid: FontAwesome.solid,
+      regular: FontAwesome.regular,
+      brands: FontAwesome.brands
+    }
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

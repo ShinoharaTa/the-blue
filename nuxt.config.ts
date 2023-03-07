@@ -14,50 +14,66 @@ const nuxtConfig: NuxtConfig = {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Aozora - bluesky web client (unofficial)',
+    title: 'The Blue - 君とみた青空の先は',
     htmlAttrs: {
       lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'ATPプロトコル対応 Bluesky WEBクライアント' },
       { name: 'format-detection', content: 'telephone=no' },
       // OGP
-      { property: 'og:title', content: 'Aozora' },
+      { property: 'og:title', content: 'The Blue - 君とみた青空の先は' },
       {
         property: 'og:image',
-        content: 'https://aozora.shino3.net/image/og-image.png',
+        content: 'https://the-blue.shino3.net/image/og-image.png',
       },
       {
         property: 'og:description',
-        content: 'Aozora - bluesky web client (unofficial)',
+        content: 'ATPプロトコル対応 Bluesky WEBクライアント',
       },
-      { property: 'og:url', content: 'https://aozora.shino3.net/' },
+      { property: 'og:url', content: 'https://the-blue.shino3.net/' },
       { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Aozora' },
+      { property: 'og:site_name', content: 'The Blue - 君とみた青空の先は' },
       // OGP: Twitter
-      { name: 'twitter:site', content: 'https://aozora.shino3.net/' },
+      { name: 'twitter:site', content: 'https://the-blue.shino3.net/' },
       { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: 'Aozora' },
+      { name: 'twitter:title', content: 'The Blue - 君とみた青空の先は' },
       {
         name: 'twitter:image',
-        content: 'https://aozora.shino3.net/image/og-image.png',
+        content: 'https://the-blue.shino3.net/image/og-image.png',
       },
       {
         name: 'twitter:description',
-        content: 'Aozora - bluesky web client (unofficial)',
+        content: 'ATPプロトコル対応 Bluesky WEBクライアント',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [{ src: '/js/bootstrap.bundle.min.js' }],
   },
 
+  pwa: {
+    manifest: {
+      name: "The Blue - 君とみた青空の先は",
+      title: "The Blue - 君とみた青空の先は",
+      short_name: "The Blue",
+      "og:title": "The Blue",
+      description: "ATPプロトコル対応 Bluesky WEBクライアント",
+      "og:description": "ATPプロトコル対応 Bluesky WEBクライアント",
+      lang: "ja",
+      theme_color: "#0089A7",
+      background_color: "#ffffff",
+      display: "standalone",
+      scope: "/",
+      start_url: "/",
+    },
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/css/bootstrap.min.css',
     '~/assets/scss/style.scss',
-    '@fortawesome/fontawesome-svg-core/styles.css',
   ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/atp'],
@@ -88,6 +104,7 @@ const nuxtConfig: NuxtConfig = {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    "@nuxtjs/pwa",
     'cookie-universal-nuxt',
   ],
 

@@ -13,6 +13,7 @@ export interface atProtoInterface {
   login(identifier: string, password: string): any
   hasSession(): any
   getTimeline(params: { limit?: number; cursor?: string }): any
+  post(text: string, urls?: { url: string; indices: [number, number] }[]): any
 }
 
 class atproto implements atProtoInterface {
@@ -78,6 +79,31 @@ class atproto implements atProtoInterface {
     } catch {
       return null
     }
+  }
+
+  async post(
+    text: string,
+    urls?: { url: string; indices: [number, number] }[]
+    // reply?: ReplyRef;
+  ) {
+    // const { text, reply, urls = [] } = params
+
+    return this.agent.api.app.bsky.feed.post.create(
+      { did: this.me.did },
+      {
+        text,
+        entities: urls?.map(({ url, indices }) => ({
+          type: 'link',
+          index: {
+            start: indices[0],
+            end: indices[1],
+          },
+          value: url,
+        })),
+        // reply: null,
+        createdAt: new Date().toISOString(),
+      }
+    )
   }
 }
 

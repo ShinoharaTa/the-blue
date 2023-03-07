@@ -59,7 +59,10 @@ export default Vue.extend({
     TimelineImages,
   },
   props: {
-    note: {},
+    note: {
+      type: Object,
+      default: () => {}
+    },
   },
   computed: {
     urlReplaceText: function () {

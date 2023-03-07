@@ -3,8 +3,15 @@ import { AtpAgent, AtpSessionData } from '@atproto/api'
 
 const COOKIE_KEY = 'AozoraUserData'
 
+declare module 'vue/types/vue' {
+  interface Vue {
+    $atp: atProtoInterface
+  }
+}
+
 export interface atProtoInterface {
   login(identifier: string, password: string): any
+  hasSession(): any
   getTimeline(params: { limit?: number; cursor?: string }): any
 }
 
@@ -75,7 +82,8 @@ class atproto implements atProtoInterface {
 }
 
 const atp: Plugin = (context: Context, inject) => {
-  inject('atp', new atproto(context))
+  const instance = new atproto(context) as atProtoInterface
+  inject('atp', instance)
 }
 
 export default atp

@@ -1,6 +1,6 @@
 <template>
   <div class="note__reaction">
-    <font-awesome-icon :icon="faIcon.icon" :class="faIcon.css" />
+    <fa-icon :icon="faIcon.icon" :class="faIcon.css" />
     <span>{{ reply }}</span>
   </div>
 </template>

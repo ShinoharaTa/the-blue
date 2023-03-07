@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div v-if="repost" class="repost">
-      <font-awesome-icon :icon="['fas', 'retweet']" class="" />
+      <fa-icon :icon="['fas', 'retweet']" class="" />
       <span>reposted by </span>
       <span class="username">{{ repost.by.displayName }}</span>
     </div>

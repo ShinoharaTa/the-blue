@@ -72,7 +72,6 @@ const nuxtConfig: NuxtConfig = {
       '@nuxtjs/fontawesome',
       {
         component: 'fa',
-        suffix: true,
       },
     ],
     [

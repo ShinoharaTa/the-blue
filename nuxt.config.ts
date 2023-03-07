@@ -7,7 +7,7 @@ const nuxtConfig: NuxtConfig = {
   target: 'static',
 
   publicRuntimeConfig: {
-    env: process.env.ENV || "",
+    env: process.env.ENV || '',
     email: process.env.TEST_EMAIL,
     pass: process.env.TEST_PASSWORD,
   },
@@ -54,7 +54,11 @@ const nuxtConfig: NuxtConfig = {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['~/assets/css/bootstrap.min.css', '~/assets/scss/style.scss'],
+  css: [
+    '~/assets/css/bootstrap.min.css',
+    '~/assets/scss/style.scss',
+    '@fortawesome/fontawesome-svg-core/styles.css',
+  ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/atp'],
 
@@ -64,14 +68,20 @@ const nuxtConfig: NuxtConfig = {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxt/typescript-build',
-    ['@nuxtjs/fontawesome', {
-      component: 'fontAwesome',
-      suffix: true,
-    }],
-    ["@nuxtjs/moment", {
-      defaultLocale: 'ja',
-      locales: ['ja'],
-    }],
+    [
+      '@nuxtjs/fontawesome',
+      {
+        component: 'fa',
+        suffix: true,
+      },
+    ],
+    [
+      '@nuxtjs/moment',
+      {
+        defaultLocale: 'ja',
+        locales: ['ja'],
+      },
+    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -85,8 +95,8 @@ const nuxtConfig: NuxtConfig = {
     icons: {
       solid: FontAwesome.solid,
       regular: FontAwesome.regular,
-      brands: FontAwesome.brands
-    }
+      brands: FontAwesome.brands,
+    },
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

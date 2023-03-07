@@ -21,7 +21,11 @@ const nuxtConfig: NuxtConfig = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'ATPプロトコル対応 Bluesky WEBクライアント' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'ATPプロトコル対応 Bluesky WEBクライアント',
+      },
       { name: 'format-detection', content: 'telephone=no' },
       // OGP
       { property: 'og:title', content: 'The Blue - 君とみた青空の先は' },
@@ -55,26 +59,23 @@ const nuxtConfig: NuxtConfig = {
 
   pwa: {
     manifest: {
-      name: "The Blue - 君とみた青空の先は",
-      title: "The Blue - 君とみた青空の先は",
-      short_name: "The Blue",
-      "og:title": "The Blue",
-      description: "ATPプロトコル対応 Bluesky WEBクライアント",
-      "og:description": "ATPプロトコル対応 Bluesky WEBクライアント",
-      lang: "ja",
-      theme_color: "#0089A7",
-      background_color: "#ffffff",
-      display: "standalone",
-      scope: "/",
-      start_url: "/",
+      name: 'The Blue - 君とみた青空の先は',
+      title: 'The Blue - 君とみた青空の先は',
+      short_name: 'The Blue',
+      'og:title': 'The Blue',
+      description: 'ATPプロトコル対応 Bluesky WEBクライアント',
+      'og:description': 'ATPプロトコル対応 Bluesky WEBクライアント',
+      lang: 'ja',
+      theme_color: '#0089A7',
+      background_color: '#ffffff',
+      display: 'standalone',
+      scope: '/',
+      start_url: '/',
     },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '~/assets/css/bootstrap.min.css',
-    '~/assets/scss/style.scss',
-  ],
+  css: ['~/assets/css/bootstrap.min.css', '~/assets/scss/style.scss'],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/atp'],
 
@@ -84,6 +85,7 @@ const nuxtConfig: NuxtConfig = {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxt/typescript-build',
+    '@nuxtjs/pwa',
     [
       '@nuxtjs/fontawesome',
       {
@@ -104,7 +106,6 @@ const nuxtConfig: NuxtConfig = {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    "@nuxtjs/pwa",
     'cookie-universal-nuxt',
   ],
 
@@ -125,7 +126,7 @@ const nuxtConfig: NuxtConfig = {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   buildDir: 'public',
   build: {
-    transpile: [/@atproto\/api/, /typed-vuex/],
+  transpile: [/@atproto\/api/, /typed-vuex/, /static.*/],
   },
   generate: {
     dir: 'public',

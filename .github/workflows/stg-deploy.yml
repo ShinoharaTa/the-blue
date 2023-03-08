@@ -40,5 +40,5 @@ jobs:
 
       - name: firebase deploy
         run: |
-          firebase deploy --project nostrtransport --only hosting:stg --token ${{ secrets.FIREBASE_TOKEN }}
+          firebase deploy --project aozorawebcl --only hosting:stg --token ${{ secrets.FIREBASE_TOKEN }}
         working-directory: ./

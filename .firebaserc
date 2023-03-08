@@ -1,15 +1,15 @@
 {
   "projects": {
-    "prod": "aozorawebclient"
+    "prod": "aozorawebcl"
   },
   "targets": {
     "nostrtransport": {
       "hosting": {
         "stg": [
-          "aozora-stg"
+          "aozorawebcl-stg"
         ],
         "prod": [
-          "aozorawebclient"
+          "aozorawebcl"
         ]
       }
     }

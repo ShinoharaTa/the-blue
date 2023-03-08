@@ -20,7 +20,7 @@
           <div>{{ $moment(note.post.record.createdAt).fromNow() }}</div>
         </div>
         <div class="">
-          <div v-html="urlReplaceText"></div>
+          <div v-html="replaceText"></div>
         </div>
         <div class="d-flex align-items-center">
           <comment :reaction="note.post.replyCount" />
@@ -61,14 +61,29 @@ export default Vue.extend({
   props: {
     note: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
   },
   computed: {
-    urlReplaceText: function () {
+    replaceText: function () {
       const text = this.note.post.record.text
       const regex = /(https?:\/\/[^\s]+)/g
       const processedText = text
+        .replace(/[<>"'&]/g, (match: string) => {
+          switch (match) {
+            case '<':
+              return '&lt;'
+            case '>':
+              return '&gt;'
+            case '"':
+              return '&quot;'
+            case "'":
+              return '&#39;'
+            case '&':
+              return '&amp;'
+          }
+          return match
+        })
         .replace(regex, (url: string) => {
           const shortUrl = url.length > 32 ? url.slice(0, 32) + '...' : url
           return ` <a href="${url}">${shortUrl}</a> `
@@ -81,7 +96,7 @@ export default Vue.extend({
       const regex = /(https?:\/\/[^\s]+\.(?:png|jpe?g|gif))/gi
 
       const images: Array<string> = []
-      this.urlReplaceText.replace(regex, (match: string) => {
+      this.replaceText.replace(regex, (match: string) => {
         images.push(match)
       })
       return images

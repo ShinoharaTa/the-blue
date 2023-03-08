@@ -40,6 +40,7 @@
         "node_modules",
         ".nuxt",
         "public",
-        "coverage"
+        "coverage",
+        "static"
     ]
 }

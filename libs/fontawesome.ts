@@ -1,6 +1,8 @@
 const solid: Array<string> = [
   'faStar',
   "faRetweet",
+  "faArrowsRotate",
+  "faRocket",
 ]
 
 // ここに追記するだけ

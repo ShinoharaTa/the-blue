@@ -1,12 +1,31 @@
 // 呪文追加
 @import '@fortawesome/fontawesome-svg-core/styles.css';
 
-// @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&family=Playfair+Display&display=swap');
 
-// body {
-//   font-family: 'Noto Serif JP', serif;
-//   font-family: 'Playfair Display', serif;
-// }
+body {
+  // font-family: 'Noto Serif JP', serif;
+  // font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  // color: #f0f0f0;
+  // background-color: #101010;
+}
+
+$color-theme: #0089A7;
+$color-theme-dark: #006CA6;
+$color-theme-light: #00A3A6;
+// $color-success: #00A61E;
+// $color-disable: #123456;
+// $color-danger: #252f38;
+// $color-danger-dark: #123456;
+// $color-danger-light: #123456;
+// $color-warning-dark: #123456;
+// $color-warning-light: #123456;
+
+.header {
+  backdrop-filter: saturate(20%) blur(10px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
 
 .note__reaction {
   padding: 5px 0;
@@ -17,4 +36,15 @@
 .image__outline {
   border-radius: 12px;
   overflow: hidden;
+}
+
+.btn-theme {
+  background-color: $color-theme;
+  color: #fff;
+}
+
+.btn-theme-outline {
+  background-color: #fff;
+  color: $color-theme;
+  border: 1px solid $color-theme;
 }

@@ -1,12 +1,12 @@
 <template>
   <div class="">
-    <div v-if="repost" class="repost">
+    <div v-if="repost" class="repost px-3 py-1 bg-light">
       <fa-icon :icon="['fas', 'retweet']" class="" />
       <span>reposted by </span>
       <span class="username">{{ repost.by.displayName }}</span>
     </div>
-    <div class="d-flex">
-      <img :src="note.post.author.avatar" class="img-fluid icon" />
+    <div class="d-flex px-3 mt-1">
+      <img :src="note.post.author.avatar" class="img-fluid icon mt-1" />
       <div class="ms-2 flex-fill">
         <div class="d-flex align-items-center justify-content-between">
           <div>
@@ -22,6 +22,9 @@
         <div class="">
           <div v-html="replaceText"></div>
         </div>
+        <div v-if="images" class="image__outline mt-2">
+          <timeline-images :images="images" />
+        </div>
         <div class="d-flex align-items-center">
           <comment :reaction="note.post.replyCount" />
           <repost
@@ -32,9 +35,6 @@
             :reaction="note.post.upvoteCount"
             :action="!!note.post.viewer.upvote"
           />
-        </div>
-        <div v-if="images" class="image__outline">
-          <timeline-images :images="images" />
         </div>
         <div>
           <!-- {{ note }} -->
@@ -113,8 +113,8 @@ export default Vue.extend({
 
 <style scoped>
 .icon {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
 }
 

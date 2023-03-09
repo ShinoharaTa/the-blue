@@ -3,7 +3,7 @@
     "prod": "aozorawebcl"
   },
   "targets": {
-    "nostrtransport": {
+    "aozorawebclient": {
       "hosting": {
         "stg": [
           "aozorawebcl-stg"

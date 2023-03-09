@@ -68,6 +68,7 @@ export default Vue.extend({
 
 .img_cover2 {
   object-fit: cover;
+  aspect-ratio: 8 / 10;
   height: 100%;
 }
 </style>

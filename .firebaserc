@@ -3,7 +3,7 @@
     "prod": "aozorawebcl"
   },
   "targets": {
-    "aozorawebclient": {
+    "aozorawebcl": {
       "hosting": {
         "stg": [
           "aozorawebcl-stg"

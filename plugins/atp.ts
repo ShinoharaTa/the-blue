@@ -14,6 +14,8 @@ export interface atProtoInterface {
   hasSession(): any
   getTimeline(params: { limit?: number; cursor?: string }): any
   post(text: string, urls?: { url: string; indices: [number, number] }[]): any
+  repost(params: { uri: string; cid: string }): any
+  upvote(params: { uri: string; cid: string }): any
 }
 
 class atproto implements atProtoInterface {
@@ -104,6 +106,30 @@ class atproto implements atProtoInterface {
         createdAt: new Date().toISOString(),
       }
     )
+  }
+
+  async repost(params: { uri: string; cid: string }) {
+    let res = this.agent.api.app.bsky.feed.repost.create(
+      { did: this.me?.did },
+      {
+        subject: params,
+        direction: 'up',
+        createdAt: new Date().toISOString(),
+      }
+    )
+    console.log("** repost " ,res);
+  }
+
+  async upvote(params: { uri: string; cid: string }) {
+    let res = this.agent.api.app.bsky.feed.vote.create(
+      { did: this.me?.did },
+      {
+        subject: params,
+        direction: 'up',
+        createdAt: new Date().toISOString(),
+      }
+    )
+    console.log("** favorite " ,res);
   }
 }
 

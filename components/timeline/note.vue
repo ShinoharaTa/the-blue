@@ -1,9 +1,9 @@
 <template>
   <div class="">
-    <div v-if="repost" class="repost px-3 py-1 bg-light">
+    <div v-if="isRepost" class="repost px-3 py-1 bg-light">
       <fa-icon :icon="['fas', 'retweet']" class="" />
       <span>reposted by </span>
-      <span class="username">{{ repost.by.displayName }}</span>
+      <span class="username">{{ isRepost.by.displayName }}</span>
     </div>
     <div class="d-flex px-3 mt-1">
       <img :src="note.post.author.avatar" class="img-fluid icon mt-1" />
@@ -30,10 +30,12 @@
           <repost
             :reaction="note.post.repostCount"
             :action="!!note.post.viewer.repost"
+            @emit-action="repost(note.post)"
           />
           <favorite
             :reaction="note.post.upvoteCount"
             :action="!!note.post.viewer.upvote"
+            @emit-action="favorite(note.post)"
           />
         </div>
         <div>
@@ -62,6 +64,14 @@ export default Vue.extend({
     note: {
       type: Object,
       default: () => {},
+    },
+  },
+  methods: {
+    repost: function (post: any) {
+      this.$atp.repost({ uri: post.uri, cid: post.cid })
+    },
+    favorite: function (post: any) {
+      this.$atp.upvote({ uri: post.uri, cid: post.cid })
     },
   },
   computed: {
@@ -104,7 +114,7 @@ export default Vue.extend({
     images: function () {
       return this.note.post.embed?.images ?? null
     },
-    repost: function () {
+    isRepost: function () {
       return this.note.reason ?? null
     },
   },

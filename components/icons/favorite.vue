@@ -1,5 +1,5 @@
 <template>
-  <div class="note__reaction">
+  <div class="note__reaction" @click="$emit('emit-action')">
     <fa-icon :icon="faIcon.icon" :class="faIcon.css" />
     <span>{{ reaction }}</span>
   </div>

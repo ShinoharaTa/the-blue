@@ -13,6 +13,8 @@ export interface atProtoInterface {
   login(identifier: string, password: string): any
   hasSession(): any
   getTimeline(params: { limit?: number; cursor?: string }): any
+  getPost(params: { uri: string })
+  getPostThread(params: { uri: string; depth?: number })
   post(text: string, urls?: { url: string; indices: [number, number] }[]): any
   repost(params: { uri: string; cid: string }): any
   upvote(params: { uri: string; cid: string }): any
@@ -83,6 +85,21 @@ class atproto implements atProtoInterface {
     }
   }
 
+  async getPost(params: { uri: string }) {
+    const response = await this.getPostThread({ ...params, depth: 0 })
+    if (!response.thread.notFound) {
+      return response.thread.post
+    } else {
+      return null
+    }
+  }
+  async getPostThread(params: { uri: string; depth?: number }) {
+    const { success, data } = await this.agent.api.app.bsky.feed.getPostThread(
+      params
+    )
+    return success ? data : null
+  }
+
   async post(
     text: string,
     urls?: { url: string; indices: [number, number] }[]
@@ -117,7 +134,7 @@ class atproto implements atProtoInterface {
         createdAt: new Date().toISOString(),
       }
     )
-    console.log("** repost " ,res);
+    console.log('** repost ', res)
   }
 
   async upvote(params: { uri: string; cid: string }) {
@@ -129,7 +146,8 @@ class atproto implements atProtoInterface {
         createdAt: new Date().toISOString(),
       }
     )
-    console.log("** favorite " ,res);
+    console.log('** favorite ', res)
+    return res;
   }
 }
 

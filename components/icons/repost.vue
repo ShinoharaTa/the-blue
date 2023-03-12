@@ -1,7 +1,7 @@
 <template>
-  <div class="note__reaction" @click="$emit('emit-action')">
+  <div class="note__reaction" @click="buttonClick">
     <fa-icon :icon="faIcon.icon" :class="faIcon.css" />
-    <span>{{ reaction }}</span>
+    <span>{{ reactionCount }}</span>
   </div>
 </template>
 
@@ -15,13 +15,34 @@ type iconType = {
 
 export default Vue.extend({
   props: {
-    reaction: {
+    reactionCount: {
       type: Number,
       default: 0,
     },
-    action: {
+    isActive: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    postUri: {
+      type: String,
+      default: "",
+    },
+    postCid: {
+      type: String,
+      default: "",
+    },
+  },
+  data() {
+    return {
+      process: false as Boolean,
+    }
+  },
+  methods: {
+    buttonClick: async function () {
+      this.process = true
+      await this.$atp.repost({ uri: this.postUri, cid: this.postCid })
+      this.$emit("reload");
+      this.process = false
     },
   },
   computed: {
@@ -30,7 +51,11 @@ export default Vue.extend({
         icon: ['fas', 'retweet'],
         css: [],
       }
-      if (this.action) {
+      if (this.process) {
+        result.icon = ['fas', 'arrows-rotate']
+        result.css.push('fa-spin')
+      }
+      if (this.isActive) {
         result.css.push('active')
       }
       return result

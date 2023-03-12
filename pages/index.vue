@@ -6,7 +6,12 @@
         Reload
       </button>
     </header-outline>
-    <timeline-note :note="note" v-for="note in timeline" :key="note.cid" />
+    <timeline-note
+      :note="note"
+      v-for="note in timeline"
+      :key="note.id"
+      @reload="singleReload(note.post.uri)"
+    />
     <!-- <postarea @posted="getTimeline" /> -->
     <footer-outline></footer-outline>
     <overlay v-if="showLightBox" :close="true" @close="closeLightBox()">
@@ -52,9 +57,14 @@ export default Vue.extend({
         this.$router.push('/login')
       }
     },
+    singleReload: async function (uri: string){
+      const res = await this.$atp.getPost({uri: uri})
+      const index = this.timeline.findIndex(note => note.post.uri === res.uri);
+      this.timeline[index].post = Object.assign({}, res);
+    },
     checkNewPost: async function () {},
     closeLightBox: function () {
-      this.setLightboxImages({images: null, page: 0});
+      this.setLightboxImages({ images: null, page: 0 })
     },
   },
   computed: {

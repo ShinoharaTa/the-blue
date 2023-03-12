@@ -28,14 +28,18 @@
         <div class="d-flex align-items-center">
           <comment :reaction="note.post.replyCount" />
           <repost
-            :reaction="note.post.repostCount"
-            :action="!!note.post.viewer.repost"
-            @emit-action="repost(note.post)"
+            :reaction-count="note.post.repostCount"
+            :is-active="!!note.post.viewer.repost"
+            :post-uri="note.post.uri"
+            :post-cid="note.post.cid"
+            @reload="$emit('reload', note.post.uri)"
           />
           <favorite
-            :reaction="note.post.upvoteCount"
-            :action="!!note.post.viewer.upvote"
-            @emit-action="favorite(note.post)"
+            :reaction-count="note.post.upvoteCount"
+            :is-active="!!note.post.viewer.upvote"
+            :post-uri="note.post.uri"
+            :post-cid="note.post.cid"
+            @reload="$emit('reload', note.post.uri)"
           />
         </div>
         <div>
@@ -69,9 +73,6 @@ export default Vue.extend({
   methods: {
     repost: function (post: any) {
       this.$atp.repost({ uri: post.uri, cid: post.cid })
-    },
-    favorite: function (post: any) {
-      this.$atp.upvote({ uri: post.uri, cid: post.cid })
     },
   },
   computed: {

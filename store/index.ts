@@ -7,33 +7,32 @@ import {
   getterTree,
 } from 'typed-vuex'
 
-// 例えば、store/age.ts のようなサブモジュールが存在する場合、
-// ここで import しておきます。
-// import * as age from '~/store/age'
+export const state = () => ({
+  overlay: false as Boolean,
+  lightboxImages: null as Array<Object> | null,
+})
 
-// ここでは、state, getters, mutations, actions の記法は省略しています。
-// 記法については、後ほど記述する store/age.ts を参照してください。
-// これらは、たとえ必要なくても、以下のように空でいいので、必ず記述してください。
-export const state = () => {
-  return {
-    timeline: [] as Array<Object>,
-  }
-}
+export type RootState = ReturnType<typeof state>
 
-export const getters = {
-  //
-}
+export const getters = getterTree(state, {
+  overlayView: (state) => state.overlay,
+  lightboxImages: (state) => state.lightboxImages,
+})
 
 export const mutations = {
-  //
+  setOverlay(state: RootState, value: boolean) {
+    state.overlay = value
+  },
+  setLightboxImages(state: RootState, params: {images: Array<object> | null, page: number}) {
+    state.lightboxImages = params.images;
+    console.log(params.page);
+  },
 }
-
 export const actions = actionTree(
   { state, getters, mutations },
   {
     getTimeline({ commit }) {
       // this.app.$atp.getTimeline(){
-
       // }
     },
   }

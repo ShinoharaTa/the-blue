@@ -30,7 +30,6 @@ export default Vue.extend({
         icon: ['far', 'star'],
         css: [],
       }
-      console.log(this.action)
       if (this.action) {
         result.css.push('active')
       }

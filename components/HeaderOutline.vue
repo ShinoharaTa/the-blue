@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-light header sticky-top">
+  <nav class="navbar navbar-light glass sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href=""></a>
       <div class="">

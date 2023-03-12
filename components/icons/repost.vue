@@ -30,7 +30,6 @@ export default Vue.extend({
         icon: ['fas', 'retweet'],
         css: [],
       }
-      console.log(this.action)
       if (this.action) {
         result.css.push('active')
       }

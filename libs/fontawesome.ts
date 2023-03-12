@@ -3,6 +3,10 @@ const solid: Array<string> = [
   "faRetweet",
   "faArrowsRotate",
   "faRocket",
+  "faXmark",
+  "faHouse",
+  "faBell",
+  "faImage",
 ]
 
 // ここに追記するだけ

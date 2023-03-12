@@ -1,15 +1,15 @@
 <template>
-  <div class="fixed-bottom postarea pt-3">
+  <div class="fixed-bottom glass pt-3">
     <div class="d-flex p-2">
       <div class="flex-fill p-1 textarea">
         <textarea rows="3" class="w-100" v-model="post"></textarea>
       </div>
       <button
         @click="postNote()"
-        class="ms-2 btn btn-theme"
-        :disabled="!postButtonDisabled"
+        class="ms-2 btn btn-primary"
+        :disabled="postButtonDisabled"
       >
-        <fa-icon :icon="['fas', 'rocket']"/>
+        <fa-icon :icon="['fas', 'rocket']" />
       </button>
     </div>
   </div>
@@ -32,24 +32,21 @@ export default Vue.extend({
   },
   methods: {
     postNote: async function () {
-      this.processing = true;
+      this.processing = true
       await this.$atp.post(this.post)
-      this.post = "";
-      this.processing = false;
+      this.post = ''
+      this.processing = false
     },
+  },
+  computed: {
     postButtonDisabled: function () {
-      return !!this.post || this.processing
+      return !this.post || this.processing
     },
   },
 })
 </script>
 
 <style scoped>
-.postarea {
-  backdrop-filter: saturate(20%) blur(10px);
-  background-color: #fffa;
-  /* border-radius: 20px 20px 0 0; */
-}
 
 .textarea {
   border-radius: 0.25rem;
@@ -62,9 +59,5 @@ textarea {
   font-size: 16px;
   box-sizing: border-box;
   display: block;
-}
-
-textarea:focus {
-  /* border: 2px solid #00A3A6; */
 }
 </style>

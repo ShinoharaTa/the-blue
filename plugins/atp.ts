@@ -47,11 +47,11 @@ class atproto implements atProtoInterface {
   }
   async hasSession() {
     const session = (() => {
-      const sessStr: AtpSessionData = this.ctx.app.$cookies.get(COOKIE_KEY)
-      if (!sessStr) {
-        return null
-      }
       try {
+        const sessStr: AtpSessionData = this.ctx.app.$cookies.get(COOKIE_KEY)
+        if (!sessStr) {
+          return null
+        }
         return sessStr
       } catch {
         return null

@@ -22,9 +22,9 @@ $color-theme-light: #00A3A6;
 // $color-warning-dark: #123456;
 // $color-warning-light: #123456;
 
-.header {
-  backdrop-filter: saturate(20%) blur(10px);
-  background-color: rgba(255, 255, 255, 0.8);
+.glass {
+  backdrop-filter: saturate(20%) blur(5px);
+  background-color: #FFF8;
 }
 
 .note__reaction {
@@ -47,4 +47,8 @@ $color-theme-light: #00A3A6;
   background-color: #fff;
   color: $color-theme;
   border: 1px solid $color-theme;
+}
+
+.btn {
+  border-radius: 20px;
 }

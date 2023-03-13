@@ -17,6 +17,9 @@
     <overlay v-if="showLightBox" :close="true" @close="closeLightBox()">
       <lightbox></lightbox>
     </overlay>
+    <overlay v-if="post" :close="true" @close="post = false">
+      <postarea></postarea>
+    </overlay>
     <!-- {{ timeline }} -->
   </div>
 </template>
@@ -31,6 +34,7 @@ import Lightbox from '~/components/Lightbox.vue'
 
 interface VueData {
   timeline: Array<Object>
+  post: Boolean
 }
 
 export default Vue.extend({
@@ -38,6 +42,7 @@ export default Vue.extend({
   data(): VueData {
     return {
       timeline: [],
+      post: false
     }
   },
   async beforeMount() {

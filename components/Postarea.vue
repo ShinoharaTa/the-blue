@@ -1,15 +1,16 @@
 <template>
-  <div class="fixed-bottom glass pt-3">
-    <div class="d-flex p-2">
-      <div class="flex-fill p-1 textarea">
-        <textarea rows="3" class="w-100" v-model="post"></textarea>
-      </div>
+  <div class="">
+    <div class="p-1 textarea">
+      <textarea rows="5" class="w-100" v-model="post"></textarea>
+    </div>
+    <div class="d-flex p-2 justify-content-between align-items-center">
       <button
         @click="postNote()"
         class="ms-2 btn btn-primary"
         :disabled="postButtonDisabled"
       >
         <fa-icon :icon="['fas', 'rocket']" />
+        Lift off
       </button>
     </div>
   </div>
@@ -47,7 +48,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-
 .textarea {
   border-radius: 0.25rem;
   border: 1px solid #ddd;

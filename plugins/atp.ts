@@ -9,15 +9,10 @@ declare module 'vue/types/vue' {
   }
 }
 
-export interface atProtoInterface {
-  login(identifier: string, password: string): any
-  hasSession(): any
-  getTimeline(params: { limit?: number; cursor?: string }): any
-  getPost(params: { uri: string })
-  getPostThread(params: { uri: string; depth?: number })
-  post(text: string, urls?: { url: string; indices: [number, number] }[]): any
-  repost(params: { uri: string; cid: string }): any
-  upvote(params: { uri: string; cid: string }): any
+declare module '@nuxt/types' {
+  interface Context {
+    $atp: typeof atproto
+  }
 }
 
 class atproto implements atProtoInterface {
@@ -134,7 +129,7 @@ class atproto implements atProtoInterface {
         createdAt: new Date().toISOString(),
       }
     )
-    console.log('** repost ', res)
+    return res;
   }
 
   async upvote(params: { uri: string; cid: string }) {
@@ -146,7 +141,6 @@ class atproto implements atProtoInterface {
         createdAt: new Date().toISOString(),
       }
     )
-    console.log('** favorite ', res)
     return res;
   }
 }
@@ -157,3 +151,14 @@ const atp: Plugin = (context: Context, inject) => {
 }
 
 export default atp
+
+export interface atProtoInterface {
+  login(identifier: string, password: string): any
+  hasSession(): any
+  getTimeline(params: { limit?: number; cursor?: string }): any
+  getPost(params: { uri: string }): any
+  getPostThread(params: { uri: string; depth?: number }): any
+  post(text: string, urls?: { url: string; indices: [number, number] }[]): any
+  repost(params: { uri: string; cid: string }): any
+  upvote(params: { uri: string; cid: string }): any
+}

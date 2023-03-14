@@ -8,8 +8,8 @@
     <div class="d-flex px-3 mt-1">
       <img :src="note.post.author.avatar" class="img-fluid icon mt-1" />
       <div class="ms-2 flex-fill">
-        <div class="d-flex align-items-center justify-content-between">
-          <div>
+        <div class="d-flex align-items-center">
+          <div class="name-handle flex-fill">
             <span class="display-name">
               {{ note.post.author.displayName }}
             </span>
@@ -17,7 +17,7 @@
               {{ note.post.author.handle }}
             </span>
           </div>
-          <div>{{ $moment(note.post.record.createdAt).fromNow() }}</div>
+          <div class="set-time flex-shrink-0">{{ timeString }}</div>
         </div>
         <div class="">
           <div v-html="replaceText"></div>
@@ -118,6 +118,9 @@ export default Vue.extend({
     isRepost: function () {
       return this.note.reason ?? null
     },
+    timeString: function () {
+      return this.$moment(this.note.post.record.createdAt).fromNow()
+    }
   },
 })
 </script>
@@ -129,7 +132,19 @@ export default Vue.extend({
   border-radius: 50%;
 }
 
-.display-name {
-  font-family: 'strong';
+.name-handle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+.display-name {
+  /* font-family: 'strong'; */
+  font-weight: 600;
+}
+
+.set-time {
+  font-size: 0.8rem
+}
+
 </style>

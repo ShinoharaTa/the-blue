@@ -2,7 +2,7 @@
   <div class="fixed-bottom">
     <div class="footer-outline">
       <div class="me-3 mb-3 write-button">
-        <button class="post-icon btn-theme">
+        <button class="post-icon btn-theme" @click="$emit('postClick')">
           <fa-icon :icon="['fas', 'rocket']" class="fa-lg" />
         </button>
       </div>

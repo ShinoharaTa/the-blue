@@ -49,6 +49,11 @@ export default Vue.extend({
     await this.$atp.hasSession()
     await this.getTimeline()
   },
+  created() {
+    setInterval(() => {
+      // this.getTimeline();
+    }, 3000)
+  },
   methods: {
     ...mapMutations({
       setLightboxImages: 'setLightboxImages',

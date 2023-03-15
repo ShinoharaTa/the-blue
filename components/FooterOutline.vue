@@ -6,29 +6,31 @@
           <fa-icon :icon="['fas', 'rocket']" class="fa-lg" />
         </button>
       </div>
-      <div class="row p-2 px-4 glass g-0">
-        <div class="col">
-          <div class="footer-icon active">
-            <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
+      <div class="p-2 px-4 glass g-0">
+        <div class="row">
+          <div class="col">
+            <div class="footer-icon active">
+              <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
+            </div>
+          </div>
+          <div class="col">
+            <div class="footer-icon">
+              <fa-icon :icon="['fas', 'image']" class="fa-lg"></fa-icon>
+            </div>
+          </div>
+          <div class="col">
+            <div class="footer-icon">
+              <fa-icon :icon="['fas', 'bell']" class="fa-lg"></fa-icon>
+            </div>
+          </div>
+          <div class="col">
+            <div class="footer-icon">
+              <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
+            </div>
           </div>
         </div>
-        <div class="col">
-          <div class="footer-icon">
-            <fa-icon :icon="['fas', 'image']" class="fa-lg"></fa-icon>
-          </div>
-        </div>
-        <div class="col">
-          <div class="footer-icon">
-            <fa-icon :icon="['fas', 'bell']" class="fa-lg"></fa-icon>
-          </div>
-        </div>
-        <div class="col">
-          <div class="footer-icon">
-            <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
-          </div>
-        </div>
+        <div class="ios-padding"></div>
       </div>
-      <div class="ios-padding"></div>
     </div>
   </div>
 </template>
@@ -88,6 +90,6 @@ export default Vue.extend({})
   // padding-left: calc(env(safe-area-inset-left) + 8px);
   // padding-top: calc(env(safe-area-inset-top) + 8px);
   // padding-right: calc(env(safe-area-inset-right) + 8px);
-  padding-bottom: calc(env(safe-area-inset-bottom) + 8px);
+  padding-bottom: calc(env(safe-area-inset-bottom));
 }
 </style>

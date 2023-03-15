@@ -12,6 +12,7 @@
       :key="note.id"
       @reload="singleReload(note.post.uri)"
     />
+    <div class="p-5"></div>
     <!-- <postarea @posted="getTimeline" /> -->
     <footer-outline @postClick="post = true"></footer-outline>
     <overlay v-if="showLightBox" :close="true" @close="closeLightBox()">

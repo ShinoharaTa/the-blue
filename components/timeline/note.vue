@@ -5,7 +5,7 @@
       <span>reposted by </span>
       <span class="username">{{ isRepost.by.displayName }}</span>
     </div>
-    <div class="d-flex px-3 mt-1">
+    <div class="d-flex px-3 mt-1 outline">
       <img :src="note.post.author.avatar" class="img-fluid icon mt-1" />
       <div class="ms-2 flex-fill">
         <div class="d-flex align-items-center">
@@ -147,4 +147,7 @@ export default Vue.extend({
   font-size: 0.8rem
 }
 
+.outline {
+  max-width: 100vw;
+}
 </style>

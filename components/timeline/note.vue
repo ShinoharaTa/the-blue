@@ -19,7 +19,7 @@
           </div>
           <div class="set-time flex-shrink-0">{{ timeString }}</div>
         </div>
-        <div class="">
+        <div class="mt-1">
           <div v-html="replaceText"></div>
         </div>
         <div v-if="images" class="image__outline mt-2">

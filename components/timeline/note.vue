@@ -10,7 +10,7 @@
       <div class="ms-2 flex-fill">
         <div class="d-flex align-items-center justify-content-between">
           <div class="name-handle">
-            <span class="display-name">
+            <span class="display-name me-2">
               {{ note.post.author.displayName }}
             </span>
             <span>
@@ -20,7 +20,7 @@
           <div class="set-time flex-shrink-0">{{ timeString }}</div>
         </div>
         <div class="mt-1">
-          <div v-html="replaceText"></div>
+          <div v-html="replaceText" class="text-break"></div>
         </div>
         <div v-if="images" class="image__outline mt-2">
           <timeline-images :images="images" />
@@ -133,10 +133,9 @@ export default Vue.extend({
 }
 
 .name-handle {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
+  word-break: break-all;
 }
 
 .display-name {

@@ -8,8 +8,8 @@
     <div class="d-flex px-3 mt-1 outline">
       <img :src="note.post.author.avatar" class="img-fluid icon mt-1" />
       <div class="ms-2 flex-fill">
-        <div class="d-flex align-items-center">
-          <div class="name-handle flex-fill">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="name-handle">
             <span class="display-name">
               {{ note.post.author.displayName }}
             </span>
@@ -136,6 +136,7 @@ export default Vue.extend({
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: inline-block;
 }
 
 .display-name {

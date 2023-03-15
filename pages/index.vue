@@ -32,17 +32,17 @@ import Postarea from '~/components/Postarea.vue'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import Lightbox from '~/components/Lightbox.vue'
 
-interface VueData {
-  timeline: Array<Object>
-  post: Boolean
-}
+// interface VueData {
+//   timeline: Array<Object>
+//   post: Boolean
+// }
 
 export default Vue.extend({
   components: { HeaderOutline, Postarea, Overlay, Lightbox },
-  data(): VueData {
+  data() {
     return {
-      timeline: [],
-      post: false
+      timeline: [] as Array<any>,
+      post: false as boolean,
     }
   },
   async beforeMount() {
@@ -67,10 +67,10 @@ export default Vue.extend({
         this.$router.push('/login')
       }
     },
-    singleReload: async function (uri: string){
-      const res = await this.$atp.getPost({uri: uri})
-      const index = this.timeline.findIndex(note => note.post.uri === res.uri);
-      this.timeline[index].post = Object.assign({}, res);
+    singleReload: async function (uri: string) {
+      const res = await this.$atp.getPost({ uri: uri })
+      const index = this.timeline.findIndex((note) => note.post.uri === res.uri)
+      this.timeline[index].post = Object.assign({}, res)
     },
     checkNewPost: async function () {},
     closeLightBox: function () {

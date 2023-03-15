@@ -82,8 +82,8 @@ class atproto implements atProtoInterface {
 
   async getPost(params: { uri: string }) {
     const response = await this.getPostThread({ ...params, depth: 0 })
-    if (!response.thread.notFound) {
-      return response.thread.post
+    if (!response?.thread.notFound) {
+      return response?.thread.post
     } else {
       return null
     }

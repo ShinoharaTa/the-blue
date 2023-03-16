@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-light glass sticky-top">
-    <div class="container-fluid">
+    <div class="container-fluid max-width">
       <a class="navbar-brand" href=""></a>
       <div class="">
         <slot />

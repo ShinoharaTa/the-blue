@@ -1,13 +1,15 @@
 <template>
   <div class="fixed-bottom">
     <div class="footer-outline">
-      <div class="me-3 mb-3 write-button">
-        <button class="post-icon btn-theme" @click="$emit('postClick')">
-          <fa-icon :icon="['fas', 'rocket']" class="fa-lg" />
-        </button>
+      <div class="button-outline max-width mx-auto">
+        <div class="me-3 mb-3 write-button">
+          <button class="post-icon btn-theme" @click="$emit('postClick')">
+            <fa-icon :icon="['fas', 'rocket']" class="fa-lg" />
+          </button>
+        </div>
       </div>
       <div class="p-2 px-4 glass g-0">
-        <div class="row">
+        <div class="row max-width mx-auto">
           <div class="col">
             <div class="footer-icon active">
               <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
@@ -63,7 +65,7 @@ export default Vue.extend({})
   align-items: center;
 }
 
-.footer-outline {
+.button-outline {
   position: relative;
 
 }

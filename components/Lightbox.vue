@@ -2,7 +2,9 @@
   <div class="swiper-container">
     <div class="swiper-wrapper">
       <div class="swiper-slide" v-for="image in lightboxImages" :key="image.id">
-        <img :src="image.fullsize" class="img-fluid">
+        <div class="image-container">
+          <img :src="image.fullsize" class="">
+        </div>
       </div>
     </div>
   </div>
@@ -15,9 +17,9 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   mounted() {
-    const mySwiper = new Swiper('.swiper-container', {
+    new Swiper('.swiper-container', {
       spaceBetween: 0, // スライド間のスペース
-      loop: true, // ループさせるかどうか
+      loop: false, // ループさせるかどうか
       pagination: {
         el: '.swiper-pagination', // ページネーションのセレクタ
         clickable: true, // クリックできるようにする
@@ -39,7 +41,20 @@ export default {
 }
 </script>
 
-<style>
-.swiper-slide img {
+<style scoped>
+.image-container {
+  max-width: 640px;
+  max-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* overflow: hidden; */
+}
+
+.image-container img {
+  max-width: 640px;
+  max-height: 70vh;
+  object-fit: contain;
+  /* overflow:; */
 }
 </style>

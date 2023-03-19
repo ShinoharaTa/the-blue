@@ -1,7 +1,7 @@
 <template>
   <div class="postarea px-3">
     <div class="textarea">
-      <textarea rows="10" class="w-100" v-model="post" :disabled="processing"></textarea>
+      <textarea rows="9" class="w-100" v-model="post" :disabled="processing"></textarea>
     </div>
     <div class="d-flex p-2 justify-content-between align-items-center">
       <button></button>

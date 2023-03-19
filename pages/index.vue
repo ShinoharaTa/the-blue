@@ -21,8 +21,18 @@
       <lightbox></lightbox>
     </overlay>
     <overlay v-if="post" :close="true" @close="post = false">
-      <postarea></postarea>
+      <postarea @close="posted"></postarea>
     </overlay>
+    <div class="fixed-top">
+      <toast
+        v-for="notify in notifications"
+        :key="notify.id"
+        :message="notify.message"
+        :status="notify.status"
+        :id="notify.id"
+        @remove="removeNotification"
+      ></toast>
+    </div>
     <!-- {{ timeline }} -->
   </div>
 </template>
@@ -34,18 +44,15 @@ import Overlay from '~/components/Overlay.vue'
 import Postarea from '~/components/Postarea.vue'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import Lightbox from '~/components/Lightbox.vue'
-
-// interface VueData {
-//   timeline: Array<Object>
-//   post: Boolean
-// }
+import Toast from '~/components/Toast.vue'
 
 export default Vue.extend({
-  components: { HeaderOutline, Postarea, Overlay, Lightbox },
+  components: { HeaderOutline, Postarea, Overlay, Lightbox, Toast },
   data() {
     return {
       timeline: [] as Array<any>,
       post: false as boolean,
+      notifications: [] as Array<any>,
     }
   },
   async beforeMount() {
@@ -78,6 +85,28 @@ export default Vue.extend({
     checkNewPost: async function () {},
     closeLightBox: function () {
       this.setLightboxImages({ images: null, page: 0 })
+    },
+    posted: function (result: any) {
+      if (result) {
+        this.addNotification('投稿しました', 'success')
+      } else {
+        this.addNotification('投稿できませんでした', 'error')
+      }
+      this.post = false
+      console.log(result)
+    },
+    addNotification(message: string, status: string) {
+      let created =
+        this.$moment().format('HHmmss') + this.$moment().milliseconds()
+      this.notifications.push({
+        message: message,
+        status: status,
+        id: created,
+      })
+    },
+    removeNotification(id: string) {
+      let index = this.notifications.find((notify) => notify.id === id)
+      this.notifications.splice(index, 1)
     },
   },
   computed: {

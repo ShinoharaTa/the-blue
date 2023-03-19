@@ -1,7 +1,7 @@
 <template>
-  <div class="postarea">
+  <div class="postarea px-3">
     <div class="textarea">
-      <textarea rows="10" class="w-100" v-model="post"></textarea>
+      <textarea rows="10" class="w-100" v-model="post" :disabled="processing"></textarea>
     </div>
     <div class="d-flex p-2 justify-content-between align-items-center">
       <button></button>
@@ -10,7 +10,7 @@
         class="ms-2 btn btn-primary"
         :disabled="postButtonDisabled"
       >
-        <fa-icon :icon="['fas', 'rocket']" />
+        <fa-icon :icon="['fas', 'rocket']" class="fa-fw" />
         Lift off
       </button>
     </div>
@@ -35,9 +35,11 @@ export default Vue.extend({
   methods: {
     postNote: async function () {
       this.processing = true
-      await this.$atp.post(this.post)
+      let str = this.post
       this.post = ''
+      await this.$atp.post(str)
       this.processing = false
+      this.$emit("close", true);
     },
   },
   computed: {

@@ -6,7 +6,9 @@
       <span class="username">{{ isRepost.by.displayName }}</span>
     </div>
     <div class="d-flex px-3 mt-1 outline">
-      <img :src="note.post.author.avatar" class="img-fluid icon mt-1" />
+      <div class="flex-shrink-0">
+        <img :src="note.post.author.avatar" class="img-fluid icon mt-1" />
+      </div>
       <div class="ms-2 flex-fill">
         <div class="d-flex align-items-center justify-content-between">
           <div class="name-handle">

@@ -11,9 +11,9 @@ body {
   // background-color: #101010;
 }
 
-$color-theme: #0089A7;
-$color-theme-dark: #006CA6;
-$color-theme-light: #00A3A6;
+$color-theme: #0089a7;
+$color-theme-dark: #006ca6;
+$color-theme-light: #00a3a6;
 // $color-success: #00A61E;
 // $color-disable: #123456;
 // $color-danger: #252f38;
@@ -24,13 +24,16 @@ $color-theme-light: #00A3A6;
 
 .glass {
   backdrop-filter: saturate(20%) blur(5px);
-  background-color: #FFF8;
+  background-color: #fff8;
 }
 
 .note__reaction {
   padding: 5px 0;
   margin: 5px 20px 5px 0;
   min-width: 40px;
+  border-radius: 2px;
+  border: none;
+  background: none;
 }
 
 .image__outline {
@@ -55,4 +58,8 @@ $color-theme-light: #00A3A6;
 
 .max-width {
   max-width: 640px;
+}
+
+a {
+  color: #113285;
 }

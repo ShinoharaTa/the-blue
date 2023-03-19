@@ -1,8 +1,12 @@
 <template>
-  <div class="note__reaction" @click="buttonClick">
-    <fa-icon :icon="faIcon.icon" :class="faIcon.css" />
+  <button
+    class="note__reaction"
+    :class="{ 'button-active': isActive }"
+    @click="buttonClick"
+  >
+    <fa-icon :icon="faIcon.icon" :class="faIcon.css" class="fa-fw" />
     <span>{{ reactionCount }}</span>
-  </div>
+  </button>
 </template>
 
 <script lang="ts">
@@ -25,11 +29,11 @@ export default Vue.extend({
     },
     postUri: {
       type: String,
-      default: "",
+      default: '',
     },
     postCid: {
       type: String,
-      default: "",
+      default: '',
     },
   },
   data() {
@@ -41,7 +45,7 @@ export default Vue.extend({
     buttonClick: async function () {
       this.process = true
       await this.$atp.repost({ uri: this.postUri, cid: this.postCid })
-      this.$emit("reload");
+      this.$emit('reload')
       this.process = false
     },
   },
@@ -66,6 +70,11 @@ export default Vue.extend({
 
 <style scoped>
 .active {
-  color: #00ff00;
+  color: #7ba23f;
+}
+
+.button-active {
+  background-color: #7ba23f40;
+  border-radius: 4px;
 }
 </style>

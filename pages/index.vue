@@ -1,7 +1,7 @@
 <template>
   <div>
     <header-outline>
-      <button class="btn btn-theme-outline" type="submit" @click="getTimeline">
+      <button class="btn btn-theme-outline" type="submit" @click="getTimeline(100)">
         <fa-icon :icon="['fas', 'arrows-rotate']" />
         Reload
       </button>
@@ -61,15 +61,15 @@ export default Vue.extend({
   },
   created() {
     setInterval(() => {
-      // this.getTimeline();
-    }, 3000)
+      // this.getTimeline(100);
+    }, 15000)
   },
   methods: {
     ...mapMutations({
       setLightboxImages: 'setLightboxImages',
     }),
-    getTimeline: async function () {
-      let data = await this.$atp.getTimeline({ limit: 100 })
+    getTimeline: async function (limit = 100) {
+      let data = await this.$atp.getTimeline({ limit: limit })
       if (data) {
         console.log(data)
         this.timeline = data.feed

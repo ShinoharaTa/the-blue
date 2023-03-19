@@ -1,0 +1,121 @@
+{
+  "post": {
+    "uri": "at://did:plc:jbwzd523vzucdqfiv7ujfoei/app.bsky.feed.post/3jrcgvjswtc2o",
+    "cid": "bafyreiau4skpmcvc3yjmoa5bpsyyww7qw46b3ooucseqlfa5gqnatoavti",
+    "author": {
+      "did": "did:plc:jbwzd523vzucdqfiv7ujfoei",
+      "declaration": {
+        "actorType": "app.bsky.system.actorUser",
+        "cid": "bafyreid27zk7lbis4zw5fz4podbvbs4fc5ivwji3dmrwa6zggnj4bnd57u"
+      },
+      "handle": "wal.bsky.social",
+      "displayName": "わる",
+      "avatar": "https://cdn.bsky.social/imgproxy/302TKu7QmVV-0yujGN6gi_VDeOFihSHzTlPmw_sp6xk/rs:fill:1000:1000:1:0/plain/bafkreid6kumg53hozwq6mrizwlgxoq4kik5ussztq7iafrt3vu2mtowq2q@jpeg",
+      "viewer": {
+        "muted": false,
+        "following": "at://did:plc:rpwpuzu2yyiuufm3232d7pm5/app.bsky.graph.follow/3jqvb53p7242a",
+        "followedBy": "at://did:plc:jbwzd523vzucdqfiv7ujfoei/app.bsky.graph.follow/3jqvaujk2sm2a"
+      }
+    },
+    "record": {
+      "text": "なるほど......！\nITよわよわなんですが何となくわかりました！ありがとうございます🙇✨",
+      "$type": "app.bsky.feed.post",
+      "reply": {
+        "root": {
+          "cid": "bafyreifr2qpa7klsrqghwkcowmjzhfdjy3l2t2lrx3ewjgjczhl53nkcma",
+          "uri": "at://did:plc:jbwzd523vzucdqfiv7ujfoei/app.bsky.feed.post/3jrcflarvx22n"
+        },
+        "parent": {
+          "cid": "bafyreifr6zb3bugz5htwheffzv2mg76giei5xi6tpn63rxma3fuwagsiiy",
+          "uri": "at://did:plc:ohwup7m7r565tbdhulp77tkp/app.bsky.feed.post/3jrcgadc2dc2o"
+        }
+      },
+      "createdAt": "2023-03-19T16:22:20.639Z"
+    },
+    "replyCount": 0,
+    "repostCount": 0,
+    "upvoteCount": 1,
+    "downvoteCount": 0,
+    "indexedAt": "2023-03-19T16:22:20.937Z",
+    "viewer": {}
+  },
+  "reply": {
+    "root": {
+      "uri": "at://did:plc:jbwzd523vzucdqfiv7ujfoei/app.bsky.feed.post/3jrcflarvx22n",
+      "cid": "bafyreifr2qpa7klsrqghwkcowmjzhfdjy3l2t2lrx3ewjgjczhl53nkcma",
+      "author": {
+        "did": "did:plc:jbwzd523vzucdqfiv7ujfoei",
+        "declaration": {
+          "actorType": "app.bsky.system.actorUser",
+          "cid": "bafyreid27zk7lbis4zw5fz4podbvbs4fc5ivwji3dmrwa6zggnj4bnd57u"
+        },
+        "handle": "wal.bsky.social",
+        "displayName": "わる",
+        "avatar": "https://cdn.bsky.social/imgproxy/302TKu7QmVV-0yujGN6gi_VDeOFihSHzTlPmw_sp6xk/rs:fill:1000:1000:1:0/plain/bafkreid6kumg53hozwq6mrizwlgxoq4kik5ussztq7iafrt3vu2mtowq2q@jpeg",
+        "viewer": {
+          "muted": false,
+          "following": "at://did:plc:rpwpuzu2yyiuufm3232d7pm5/app.bsky.graph.follow/3jqvb53p7242a",
+          "followedBy": "at://did:plc:jbwzd523vzucdqfiv7ujfoei/app.bsky.graph.follow/3jqvaujk2sm2a"
+        }
+      },
+      "record": {
+        "text": "そういえばBlueskyはお引越しがいい感じにできるみたいなの聞いたけど、IDとかってどうなるんだろう、移行先でも新しく取得する形になる？",
+        "$type": "app.bsky.feed.post",
+        "createdAt": "2023-03-19T15:58:41.662Z"
+      },
+      "replyCount": 1,
+      "repostCount": 0,
+      "upvoteCount": 0,
+      "downvoteCount": 0,
+      "indexedAt": "2023-03-19T15:58:42.180Z",
+      "viewer": {}
+    },
+    "parent": {
+      "uri": "at://did:plc:ohwup7m7r565tbdhulp77tkp/app.bsky.feed.post/3jrcgadc2dc2o",
+      "cid": "bafyreifr6zb3bugz5htwheffzv2mg76giei5xi6tpn63rxma3fuwagsiiy",
+      "author": {
+        "did": "did:plc:ohwup7m7r565tbdhulp77tkp",
+        "declaration": {
+          "actorType": "app.bsky.system.actorUser",
+          "cid": "bafyreid27zk7lbis4zw5fz4podbvbs4fc5ivwji3dmrwa6zggnj4bnd57u"
+        },
+        "handle": "erechorse.bsky.social",
+        "displayName": "電子馬",
+        "avatar": "https://cdn.bsky.social/imgproxy/IDali4r_23_QrDnJro3dOV-tl5N9mV5k5cPW3vea6is/rs:fill:1000:1000:1:0/plain/bafkreiepcay6iy6724ow2d75wjktc6knklwwjgujmzv4b6rcdd4t43xekq@jpeg",
+        "viewer": {
+          "muted": false,
+          "following": "at://did:plc:rpwpuzu2yyiuufm3232d7pm5/app.bsky.graph.follow/3jpzcqid7222y",
+          "followedBy": "at://did:plc:ohwup7m7r565tbdhulp77tkp/app.bsky.graph.follow/3jpzcehucns22"
+        }
+      },
+      "record": {
+        "text": "私のDIDはこれなんですが\ndid:plc:ohwup7m7r565tbdhulp77tkp\nこれはお引越ししても変わらないです。@以降のやつは再取得する必要があるんですが、自分でドメインを持ってると引っ越しても変えずに済みます。\n興味があるならSegmentさんの発表がおすすめです。わかりやすい\nhttps://www.youtube.com/watch?v=OjP0VkjRsC4",
+        "$type": "app.bsky.feed.post",
+        "reply": {
+          "root": {
+            "cid": "bafyreifr2qpa7klsrqghwkcowmjzhfdjy3l2t2lrx3ewjgjczhl53nkcma",
+            "uri": "at://did:plc:jbwzd523vzucdqfiv7ujfoei/app.bsky.feed.post/3jrcflarvx22n"
+          },
+          "parent": {
+            "cid": "bafyreifr2qpa7klsrqghwkcowmjzhfdjy3l2t2lrx3ewjgjczhl53nkcma",
+            "uri": "at://did:plc:jbwzd523vzucdqfiv7ujfoei/app.bsky.feed.post/3jrcflarvx22n"
+          }
+        },
+        "entities": [
+          {
+            "type": "link",
+            "index": { "end": 193, "start": 150 },
+            "value": "https://www.youtube.com/watch?v=OjP0VkjRsC4"
+          }
+        ],
+        "createdAt": "2023-03-19T16:10:29.343Z"
+      },
+      "replyCount": 1,
+      "repostCount": 1,
+      "upvoteCount": 3,
+      "downvoteCount": 0,
+      "indexedAt": "2023-03-19T16:10:29.449Z",
+      "viewer": {}
+    }
+  }
+}

@@ -21,6 +21,14 @@
           </div>
           <div class="set-time flex-shrink-0">{{ timeString }}</div>
         </div>
+        <div v-if="!!note.reply" class="mt-1 d-flex">
+          <div class="replyed">
+            <fa-icon :icon="['fas', 'reply']" class="me-1" />Replyed to:
+            <span class="display-name">{{
+              note.reply.parent.author.displayName
+            }}</span>
+          </div>
+        </div>
         <div class="mt-1">
           <div v-html="replaceText" class="text-break"></div>
         </div>
@@ -122,7 +130,7 @@ export default Vue.extend({
     },
     timeString: function () {
       return this.$moment(this.note.post.record.createdAt).fromNow()
-    }
+    },
   },
 })
 </script>
@@ -146,10 +154,17 @@ export default Vue.extend({
 }
 
 .set-time {
-  font-size: 0.8rem
+  font-size: 0.8rem;
 }
 
 .outline {
   max-width: 100vw;
+}
+
+.replyed {
+  font-size: 0.75rem;
+  padding: 0.2rem 1rem;
+  background: #eee;
+  border-radius: 1rem;
 }
 </style>

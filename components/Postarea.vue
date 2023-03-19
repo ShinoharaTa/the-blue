@@ -1,24 +1,33 @@
 <template>
   <div class="postarea px-3">
     <div class="textarea">
-      <textarea rows="9" class="w-100" v-model="post" :disabled="processing"></textarea>
+      <textarea
+        rows="9"
+        class="w-100"
+        v-model="post"
+        :disabled="processing"
+      ></textarea>
     </div>
     <div class="d-flex p-2 justify-content-between align-items-center">
       <button></button>
-      <button
-        @click="postNote()"
-        class="ms-2 btn btn-primary"
-        :disabled="postButtonDisabled"
-      >
-        <fa-icon :icon="['fas', 'rocket']" class="fa-fw" />
-        Lift off
-      </button>
+      <div class="d-flex">
+        <post-counter :text="post" class=""></post-counter>
+        <button
+          @click="postNote()"
+          class="ms-2 btn btn-primary"
+          :disabled="postButtonDisabled"
+        >
+          <fa-icon :icon="['fas', 'rocket']" class="fa-fw" />
+          Lift off
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import PostCounter from './PostCounter.vue'
 
 interface VueData {
   post: string
@@ -26,6 +35,7 @@ interface VueData {
 }
 
 export default Vue.extend({
+  components: { PostCounter },
   data(): VueData {
     return {
       post: '',
@@ -39,7 +49,7 @@ export default Vue.extend({
       this.post = ''
       await this.$atp.post(str)
       this.processing = false
-      this.$emit("close", true);
+      this.$emit('close', true)
     },
   },
   computed: {

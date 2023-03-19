@@ -6,15 +6,13 @@
         Reload
       </button>
     </header-outline>
-    <div class="d-flex justify-content-center">
-      <div class="max-width">
-        <timeline-note
-          :note="note"
-          v-for="note in timeline"
-          :key="note.id"
-          @reload="singleReload(note.post.uri)"
-        />
-      </div>
+    <div class="max-width mx-auto">
+      <timeline-note
+        :note="note"
+        v-for="note in timeline"
+        :key="note.id"
+        @reload="singleReload(note.post.uri)"
+      />
     </div>
     <div class="p-5"></div>
     <!-- <postarea @posted="getTimeline" /> -->

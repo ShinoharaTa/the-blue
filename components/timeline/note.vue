@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="pb-2">
     <div v-if="isRepost" class="repost px-3 py-1 bg-light">
       <fa-icon :icon="['fas', 'retweet']" class="" />
       <span>reposted by </span>

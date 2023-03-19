@@ -66,6 +66,6 @@ export default Vue.extend({
 
 <style scoped>
 .active {
-  color: #00ff00;
+  color: #7BA23F;
 }
 </style>

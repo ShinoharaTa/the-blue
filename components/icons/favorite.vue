@@ -56,6 +56,7 @@ export default Vue.extend({
         result.css.push('fa-spin')
       }
       if (this.isActive) {
+        result.icon = ['fas', 'star']
         result.css.push('active')
       }
       return result
@@ -66,6 +67,6 @@ export default Vue.extend({
 
 <style scoped>
 .active {
-  color: #00ff00;
+  color: #E2943B;
 }
 </style>

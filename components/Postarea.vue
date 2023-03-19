@@ -1,9 +1,10 @@
 <template>
-  <div class="">
-    <div class="p-1 textarea">
-      <textarea rows="5" class="w-100" v-model="post"></textarea>
+  <div class="postarea">
+    <div class="textarea">
+      <textarea rows="10" class="w-100" v-model="post"></textarea>
     </div>
     <div class="d-flex p-2 justify-content-between align-items-center">
+      <button></button>
       <button
         @click="postNote()"
         class="ms-2 btn btn-primary"
@@ -59,5 +60,10 @@ textarea {
   font-size: 16px;
   box-sizing: border-box;
   display: block;
+}
+
+.postarea {
+  max-width: 640px;
+  width: 100%;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="page fixed-top">
-    <div>
+    <div class="content flex-fill">
       <div class="d-flex justify-content-end px-3" v-if="close">
         <button class="btn bg-white d-flex align-items-center px-3" @click="closeAction">
           <fa-icon :icon="['fas', 'xmark']"></fa-icon>
@@ -46,5 +46,9 @@ export default Vue.extend({
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.content {
+  max-width: 640px;
 }
 </style>

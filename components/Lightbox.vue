@@ -43,18 +43,14 @@ export default {
 
 <style scoped>
 .image-container {
-  max-width: 640px;
   max-height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* overflow: hidden; */
 }
 
 .image-container img {
-  max-width: 640px;
   max-height: 70vh;
   object-fit: contain;
-  /* overflow:; */
 }
 </style>

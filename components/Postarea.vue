@@ -54,7 +54,7 @@ export default Vue.extend({
   },
   computed: {
     postButtonDisabled: function () {
-      return !this.post || this.processing
+      return !this.post.trim() || this.processing
     },
   },
 })

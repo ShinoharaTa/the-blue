@@ -1,8 +1,8 @@
 <template>
-  <div class="note__reaction">
+  <button class="note__reaction">
     <fa-icon :icon="faIcon.icon" :class="faIcon.css" />
     <span>{{ reply }}</span>
-  </div>
+  </button>
 </template>
 
 <script lang="ts">

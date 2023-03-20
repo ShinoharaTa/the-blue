@@ -1,0 +1,67 @@
+{
+  "post": {
+    "uri": "at://did:plc:ma37ez4i3gmwkvwpytsqeepp/app.bsky.feed.post/3jre2prnrwc2d",
+    "cid": "bafyreialzdbw2da24azijb2oozyqorkh2wqfizzxmx5eavwzkljahgfiti",
+    "author": {
+      "did": "did:plc:ma37ez4i3gmwkvwpytsqeepp",
+      "declaration": {
+        "actorType": "app.bsky.system.actorUser",
+        "cid": "bafyreid27zk7lbis4zw5fz4podbvbs4fc5ivwji3dmrwa6zggnj4bnd57u"
+      },
+      "handle": "gpsnmeajp.achetaria.com",
+      "displayName": "Segment",
+      "avatar": "https://cdn.bsky.social/imgproxy/Yapf94TGoIq5Y6SvHXshOaS-hk_-TXFz40Btvxrl3FU/rs:fill:1000:1000:1:0/plain/bafkreihwmh23ukzzyglr5kamai7g6u3unov6swjvctkcc6zpzwta7u4q5e@jpeg",
+      "viewer": {
+        "muted": false,
+        "following": "at://did:plc:rpwpuzu2yyiuufm3232d7pm5/app.bsky.graph.follow/3jq67nhmt5k25",
+        "followedBy": "at://did:plc:ma37ez4i3gmwkvwpytsqeepp/app.bsky.graph.follow/3jq6ajlrccs25"
+      }
+    },
+    "record": {
+      "text": "・シンプルだと怖い人\n・シンプルじゃないと嫌な人\n・昔できたことできなくなるのが嫌な人\n・できる機能の数が価値だと思ってる人\nなどがいるので難しい",
+      "$type": "app.bsky.feed.post",
+      "embed": {
+        "$type": "app.bsky.embed.record",
+        "record": {
+          "cid": "bafyreieaib7fp447pcz3ly63sx3xtapm53hzd3d3hb36d33al3w5lapjza",
+          "uri": "at://did:plc:s6alcgviphdc2z5gmsmu6pwy/app.bsky.feed.post/3jrdyffzwi22p"
+        }
+      },
+      "createdAt": "2023-03-20T07:49:41.826Z"
+    },
+    "embed": {
+      "$type": "app.bsky.embed.record#presented",
+      "record": {
+        "$type": "app.bsky.embed.record#presentedRecord",
+        "uri": "at://did:plc:s6alcgviphdc2z5gmsmu6pwy/app.bsky.feed.post/3jrdyffzwi22p",
+        "cid": "bafyreieaib7fp447pcz3ly63sx3xtapm53hzd3d3hb36d33al3w5lapjza",
+        "author": {
+          "did": "did:plc:s6alcgviphdc2z5gmsmu6pwy",
+          "declaration": {
+            "actorType": "app.bsky.system.actorUser",
+            "cid": "bafyreid27zk7lbis4zw5fz4podbvbs4fc5ivwji3dmrwa6zggnj4bnd57u"
+          },
+          "handle": "shin.bsky.social",
+          "displayName": "shin",
+          "avatar": "https://cdn.bsky.social/imgproxy/f3nJg4oPGrsMvQ2DQpnUPoRvg_tyA_aSOt-2iOxkxq0/rs:fill:1000:1000:1:0/plain/bafkreihmmtxzovoma3gniideuz3aorfk6owchfed7q4kmzsk6bruk6m3dm@jpeg",
+          "viewer": {
+            "muted": false
+          }
+        },
+        "record": {
+          "text": "「機能が多くて色々出来る」は人によっては「うんざりするシロモノ」なんだよね。",
+          "$type": "app.bsky.feed.post",
+          "createdAt": "2023-03-20T07:08:06.652Z"
+        }
+      }
+    },
+    "replyCount": 0,
+    "repostCount": 0,
+    "upvoteCount": 4,
+    "downvoteCount": 0,
+    "indexedAt": "2023-03-20T07:49:42.405Z",
+    "viewer": {
+      "upvote": "at://did:plc:rpwpuzu2yyiuufm3232d7pm5/app.bsky.feed.vote/3jre2qfm2q22o"
+    }
+  }
+}

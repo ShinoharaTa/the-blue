@@ -28,10 +28,10 @@ $color-theme-light: #00a3a6;
 }
 
 .note__reaction {
-  padding: 5px 0;
-  margin: 5px 20px 5px 0;
-  min-width: 40px;
-  border-radius: 2px;
+  padding: 3px 0;
+  margin: 5px 5px 5px 0;
+  min-width: 45px;
+  border-radius: 3px;
   border: none;
   background: none;
 }
@@ -39,6 +39,12 @@ $color-theme-light: #00a3a6;
 .image__outline {
   border-radius: 12px;
   overflow: hidden;
+}
+
+.repost__outline {
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  // overflow: hidden;
 }
 
 .btn-theme {

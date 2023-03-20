@@ -27,7 +27,10 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default Vue.extend({
   props: {
-    record: {} as Object,
+    record: {
+      type: Object,
+      default: () => {},
+    },
   },
   computed: {
     replaceText: function () {
@@ -58,7 +61,9 @@ export default Vue.extend({
       return processedText
     },
     timeString: function () {
-      return this.$moment(this.record.record.createdAt).format("YYYY/MM/DD HH:mm")
+      return this.$moment(this.record.record.createdAt).format(
+        'YYYY/MM/DD HH:mm'
+      )
     },
   },
   methods: {
@@ -88,7 +93,7 @@ export default Vue.extend({
 }
 
 .outline {
-  padding: 0.2rem 0.5rem;
+  padding: 0.2rem 0.5rem 0.5rem;
   font-size: 0.8rem;
 }
 </style>

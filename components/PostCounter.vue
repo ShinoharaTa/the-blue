@@ -1,30 +1,27 @@
 <template>
   <div>
-    <svg :width="size" :height="size">
-      <circle class="circle-bg" :cx="center" :cy="center" :r="radius" />
+    <svg :width="38" :height="38">
+      <circle class="circle-bg" :cx="19" :cy="19" :r="15" />
       <circle
         class="circle"
         :class="{ red: isRed }"
-        :cx="center"
-        :cy="center"
-        :r="radius"
+        :cx="19"
+        :cy="19"
+        :r="15"
         :stroke-dasharray="dashArray"
         :stroke-dashoffset="dashOffset"
       />
-      <text
-        v-if="text.length > 246"
-        class="percentage"
-        :x="center"
-        :y="center"
-      >
+      <text v-if="text.length > 246" class="percentage" :x="center" :y="center">
         {{ 256 - text.length }}
       </text>
     </svg>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   props: {
     text: {
       type: String,
@@ -34,21 +31,20 @@ export default {
   },
   data() {
     return {
-      size: 38,
       center: 19,
       radius: 15,
-      isRed: false,
+      isRed: false as boolean,
     }
   },
   computed: {
     percentage() {
       const length = this.text.length
-      if(length === 0) return 0;
+      if (length === 0) return 0
       return (Math.min(length, 256) / 256) * 100
     },
     dashArray() {
       const length = this.text.length
-      const circumference = 2 * Math.PI * this.radius
+      const circumference = 2 * Math.PI * 15
       return `${(length / 256) * circumference} ${circumference}`
     },
     dashOffset() {
@@ -62,7 +58,7 @@ export default {
       this.isRed = newValue.length >= 257
     },
   },
-}
+})
 </script>
 
 <style>

@@ -2,13 +2,18 @@
 @import '@fortawesome/fontawesome-svg-core/styles.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&family=Playfair+Display&display=swap');
+@import url("https://fonts.googleapis.com/earlyaccess/notosansjp.css");
+
+
+:root{
+  --font-family-sans-serif: 'Noto Sans JP', sans-serif;
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
 
 body {
-  // font-family: 'Noto Serif JP', serif;
-  // font-family: 'Playfair Display', serif;
   font-size: 14px;
-  // color: #f0f0f0;
-  // background-color: #101010;
+  font-family: var(--font-family-sans-serif);
+  // font-weight: 400;
 }
 
 $color-theme: #0089a7;
@@ -21,6 +26,14 @@ $color-theme-light: #00a3a6;
 // $color-danger-light: #123456;
 // $color-warning-dark: #123456;
 // $color-warning-light: #123456;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-sans-serif);
+}
+
+button {
+  color: #000;
+}
 
 .glass {
   backdrop-filter: saturate(20%) blur(5px);

@@ -1,5 +1,11 @@
 import { Plugin, Context } from '@nuxt/types'
-import { AtpAgent, AtpSessionData } from '@atproto/api'
+import {
+  AppBskyEmbedExternal,
+  AppBskyEmbedImages,
+  AppBskyEmbedRecord,
+  AtpAgent,
+  AtpSessionData,
+} from '@atproto/api'
 
 const COOKIE_KEY = 'AozoraUserData'
 
@@ -97,11 +103,14 @@ class atproto implements atProtoInterface {
 
   async post(
     text: string,
-    urls?: { url: string; indices: [number, number] }[]
+    urls?: { url: string; indices: [number, number] }[],
+    embed?:
+      | AppBskyEmbedImages.Main
+      | AppBskyEmbedExternal.Main
+      | AppBskyEmbedRecord.Main
+      | { $type: string; [k: string]: unknown }
     // reply?: ReplyRef;
   ) {
-    // const { text, reply, urls = [] } = params
-
     return this.agent.api.app.bsky.feed.post.create(
       { did: this.me.did },
       {
@@ -115,9 +124,22 @@ class atproto implements atProtoInterface {
           value: url,
         })),
         // reply: null,
+        embed: embed,
         createdAt: new Date().toISOString(),
       }
     )
+  }
+
+  async upImage(image: Blob) {
+    const { data, success } = await this.agent.api.com.atproto.blob.upload(
+      new Uint8Array(await image.arrayBuffer()),
+      { encoding: image.type }
+    )
+    if (!success) return null
+    return {
+      cid: data.cid,
+      mimetype: image.type,
+    }
   }
 
   async repost(params: { uri: string; cid: string }) {
@@ -129,7 +151,7 @@ class atproto implements atProtoInterface {
         createdAt: new Date().toISOString(),
       }
     )
-    return res;
+    return res
   }
 
   async upvote(params: { uri: string; cid: string }) {
@@ -141,7 +163,7 @@ class atproto implements atProtoInterface {
         createdAt: new Date().toISOString(),
       }
     )
-    return res;
+    return res
   }
 }
 
@@ -158,230 +180,16 @@ export interface atProtoInterface {
   getTimeline(params: { limit?: number; cursor?: string }): any
   getPost(params: { uri: string }): any
   getPostThread(params: { uri: string; depth?: number }): any
-  post(text: string, urls?: { url: string; indices: [number, number] }[]): any
+  post(
+    text: string,
+    urls?: { url: string; indices: [number, number] }[],
+    embed?:
+      | AppBskyEmbedImages.Main
+      | AppBskyEmbedExternal.Main
+      | AppBskyEmbedRecord.Main
+      | { $type: string; [k: string]: unknown }
+  ): any
+  upImage(image: Blob): any
   repost(params: { uri: string; cid: string }): any
   upvote(params: { uri: string; cid: string }): any
 }
-
-export interface Feed {
-  post: Post;
-  reply?: {
-    parent: Post;
-    root: Post;
-  };
-  reason?: Reason.Repost;
-}
-
-export interface Post {
-  uri: string;
-  cid: string;
-  author: Actor;
-  record: Record.Post;
-  embed?: Embed.Any;
-  replyCount: number;
-  repostCount: number;
-  upvoteCount: number;
-  downvoteCount: number;
-  indexedAt: string;
-  viewer: Viewer.Post;
-}
-
-export interface Actor {
-  did: string;
-  declaration: Declaration;
-  handle: string;
-  displayName?: string;
-  avatar?: string;
-  viewer?: Viewer.Actor;
-}
-
-export interface ActorDetail {
-  did: string;
-  declaration: Declaration;
-  handle: string;
-  displayName?: string;
-  description?: string;
-  avatar?: string;
-  indexedAt?: string;
-  viewer?: Viewer.Actor;
-}
-
-export interface ActorProfile {
-  did: string;
-  declaration: Declaration;
-  handle: string;
-  displayName?: string;
-  description?: string;
-  avatar?: string;
-  banner?: string;
-  followersCount: number;
-  followsCount: number;
-  postsCount: number;
-  creator: string;
-  indexedAt?: string;
-  viewer?: Viewer.Actor;
-  myState?: {
-    follow?: string;
-    muted?: boolean;
-  };
-}
-
-export interface Declaration {
-  cid: string;
-  actorType: "app.bsky.system.actorUser";
-}
-
-export namespace Reason {
-  export interface Repost {
-    by: Actor;
-    indexedAt: string;
-  }
-}
-
-export namespace Embed {
-  export type Any =
-    | Embed.Image
-    | Embed.External
-    | Embed.Record
-    | Embed.RecordNotFound;
-
-  export interface Image {
-    images: {
-      thumb: string;
-      fullsize: string;
-      alt: string;
-    }[];
-  }
-  export const isImage = (
-    embed: Embed.Any | undefined | null
-  ): embed is Embed.Image => !!(embed && (embed as any).images);
-
-  export interface External {
-    external: {
-      uri: string;
-      title: string;
-      description: string;
-      thumb?: string;
-    };
-  }
-  export const isExternal = (
-    embed: Embed.Any | undefined | null
-  ): embed is Embed.External => !!(embed && (embed as any).external);
-
-  export interface Record {
-    record: {
-      uri: string;
-      cid: string;
-      author: Actor;
-      record: Record.Post;
-    };
-  }
-  export const isRecord = (
-    embed: Embed.Any | undefined | null
-  ): embed is Embed.Record => !!(embed && (embed as any).record?.cid);
-
-  export interface RecordNotFound {
-    record: {
-      uri: string;
-    };
-  }
-  export const isRecordNotFound = (
-    embed: Embed.Any | undefined | null
-  ): embed is Embed.RecordNotFound =>
-    !!(embed && (embed as any).record) && !(embed as any).record?.cid;
-}
-
-export namespace Viewer {
-  export interface Actor {
-    muted?: boolean;
-    following?: string;
-    followedBy?: string;
-  }
-
-  export interface Post {
-    repost?: string;
-    upvote?: string;
-    downvote?: string;
-  }
-}
-
-export namespace Record {
-  export interface Post {
-    createdAt: string;
-    text: string;
-    embed?: {
-      external?: Embed.External;
-    };
-    entities?: Entity[];
-    reply?: ReplyRef;
-  }
-
-  export interface Vote {
-    createdAt: string;
-    direction: "up" | "down";
-    subject: { cid: string; uri: string };
-  }
-
-  export interface Repost {
-    createdAt: string;
-    subject: { cid: string; uri: string };
-  }
-
-  export interface Follow {
-    createdAt: string;
-    subject: { declarationCid: string; did: string };
-  }
-}
-
-export interface Entity {
-  type: "link" | "mention";
-  index: { start: number; end: number };
-  value: string;
-}
-
-export interface ReplyRef {
-  root: {
-    cid: string;
-    uri: string;
-  };
-  parent: {
-    cid: string;
-    uri: string;
-  };
-}
-
-export type PostThread =
-  | {
-      notFound: undefined; // Not actually present, but for convenience.
-      post: Post;
-      parent?: PostThread;
-      replies?: PostThread[];
-    }
-  | {
-      notFound: true;
-      uri: string;
-    };
-
-type NotificationOf<K, R> = {
-  uri: string;
-  cid: string;
-  author: Actor;
-  reason: K;
-  reasonSubject?: string;
-  record: R;
-  isRead: boolean;
-  indexedAt: string;
-};
-
-export type VoteNotification = NotificationOf<"vote", Record.Vote>;
-export type RepostNotification = NotificationOf<"repost", Record.Repost>;
-export type FollowNotification = NotificationOf<"follow", Record.Follow>;
-export type MentionNotification = NotificationOf<"mention", Record.Post>;
-export type ReplyNotification = NotificationOf<"reply", Record.Post>;
-
-export type Notification =
-  | VoteNotification
-  | RepostNotification
-  | FollowNotification
-  | MentionNotification
-  | ReplyNotification;

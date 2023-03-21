@@ -11,7 +11,7 @@ const solid: Array<string> = [
 ]
 
 // ここに追記するだけ
-const regular: Array<string> = ['faStar', 'faComment']
+const regular: Array<string> = ['faStar', 'faComment', 'faImage']
 
 // ここに追記するだけ
 const brands: Array<string> = []

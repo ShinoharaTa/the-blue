@@ -23,6 +23,9 @@
     <overlay v-if="post" :close="true" @close="post = false">
       <postarea @close="posted"></postarea>
     </overlay>
+    <!-- <overlay>
+      <spinner></spinner>
+    </overlay> -->
     <div class="fixed-top">
       <toast
         v-for="notify in notifications"

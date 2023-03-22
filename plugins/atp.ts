@@ -101,7 +101,7 @@ class atproto implements atProtoInterface {
     return success ? data : null
   }
 
-  async post(
+  async post(params: {
     text: string,
     urls?: { url: string; indices: [number, number] }[],
     embed?:
@@ -110,21 +110,22 @@ class atproto implements atProtoInterface {
       | AppBskyEmbedRecord.Main
       | { $type: string; [k: string]: unknown }
     // reply?: ReplyRef;
+  }
   ) {
     return this.agent.api.app.bsky.feed.post.create(
       { did: this.me.did },
       {
-        text,
-        entities: urls?.map(({ url, indices }) => ({
-          type: 'link',
-          index: {
-            start: indices[0],
-            end: indices[1],
-          },
-          value: url,
-        })),
+        text: params.text,
+        // entities: params.urls?.map(({ url, indices }) => ({
+        //   type: 'link',
+        //   index: {
+        //     start: indices[0],
+        //     end: indices[1],
+        //   },
+        //   value: url,
+        // })),
         // reply: null,
-        embed: embed,
+        embed: params.embed,
         createdAt: new Date().toISOString(),
       }
     )
@@ -138,7 +139,7 @@ class atproto implements atProtoInterface {
     if (!success) return null
     return {
       cid: data.cid,
-      mimetype: image.type,
+      mimeType: image.type,
     }
   }
 
@@ -180,7 +181,7 @@ export interface atProtoInterface {
   getTimeline(params: { limit?: number; cursor?: string }): any
   getPost(params: { uri: string }): any
   getPostThread(params: { uri: string; depth?: number }): any
-  post(
+  post(params: {
     text: string,
     urls?: { url: string; indices: [number, number] }[],
     embed?:
@@ -188,7 +189,7 @@ export interface atProtoInterface {
       | AppBskyEmbedExternal.Main
       | AppBskyEmbedRecord.Main
       | { $type: string; [k: string]: unknown }
-  ): any
+  }): any
   upImage(image: Blob): any
   repost(params: { uri: string; cid: string }): any
   upvote(params: { uri: string; cid: string }): any

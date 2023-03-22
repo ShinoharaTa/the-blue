@@ -6,6 +6,7 @@
         class="w-100"
         v-model="post"
         :disabled="processing"
+        @paste="handlePaste"
       ></textarea>
     </div>
     <div class="mt-2">
@@ -15,7 +16,11 @@
           :key="index"
           class="col-3 image-outline"
         >
-          <img :src="image.dataUrl" :alt="'画像' + (index + 1)" class="add-image" />
+          <img
+            :src="image.dataUrl"
+            :alt="'画像' + (index + 1)"
+            class="add-image"
+          />
           <button @click="removeImage(index)" class="btn bg-white remove-image">
             <fa-icon :icon="['fas', 'xmark']" class="fa-fw"></fa-icon>
           </button>
@@ -88,29 +93,58 @@ export default Vue.extend({
       for (let i = 0; i < files.length; i++) {
         const file = files[i]
         if (file.type.startsWith('image/')) {
-          const reader = new FileReader()
-          reader.onload = (e) => {
-            this.images.push({
-              blob: file,
-              dataUrl: (e.target as FileReader).result as string,
-            })
-          }
-          reader.readAsDataURL(file)
+          this.addImage(file)
         }
       }
     },
+    async handlePaste(event: ClipboardEvent) {
+      const items = event.clipboardData!.items
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.startsWith('image/')) {
+          const blob = items[i].getAsFile() as Blob
+          await this.addImage(blob)
+          break
+        }
+      }
+    },
+    async addImage(blob: Blob) {
+      const dataUrl = await this.readFileAsDataURL(blob)
+      this.images.push({ blob, dataUrl })
+    },
+    readFileAsDataURL(file: Blob) {
+      return new Promise<string>((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => {
+          resolve(reader.result as string)
+        }
+        reader.onerror = () => {
+          reject(reader.error)
+        }
+        reader.readAsDataURL(file)
+      })
+    },
     removeImage(index: number) {},
     postNote: async function () {
+      let params: any = {
+        text: this.post,
+      }
       this.processing = true
-      let str = this.post
       this.post = ''
-      let embed: AppBskyEmbedImages.Main | undefined = undefined;
-      await this.images.forEach(async (image) => {
-        const res = await this.$atp.upImage(image.blob);
-        console.log(res);
-        embed?.images.push({image: res, alt: ""});
-      })
-      await this.$atp.post(str, [], embed)
+      if (this.images.length > 0) {
+        let embed: AppBskyEmbedImages.Main = {
+          $type: 'app.bsky.embed.images',
+          images: [],
+        }
+        embed.images = await Promise.all(
+          this.images.map(async (image) => {
+            const res = await this.$atp.upImage(image.blob)
+            console.log(res)
+            return { image: res, alt: '' }
+          })
+        )
+        params.embed = embed
+      }
+      await this.$atp.post(params)
       this.processing = false
       this.$emit('close', true)
     },

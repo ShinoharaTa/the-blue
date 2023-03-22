@@ -27,14 +27,16 @@
       <spinner></spinner>
     </overlay> -->
     <div class="fixed-top">
-      <toast
-        v-for="notify in notifications"
-        :key="notify.id"
-        :message="notify.message"
-        :status="notify.status"
-        :id="notify.id"
-        @remove="removeNotification"
-      ></toast>
+      <transition-group name="slide-up" tag="div">
+        <toast
+          v-for="notify in notifications"
+          :key="notify.id"
+          :message="notify.message"
+          :status="notify.status"
+          :id="notify.id"
+          @remove="removeNotification"
+        ></toast>
+      </transition-group>
     </div>
     <!-- {{ timeline }} -->
   </div>
@@ -123,3 +125,16 @@ export default Vue.extend({
   },
 })
 </script>
+
+
+<style scoped>
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.5s ease;
+}
+.slide-up-enter,
+.slide-up-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+</style>

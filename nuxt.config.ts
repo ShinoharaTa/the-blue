@@ -7,14 +7,16 @@ const nuxtConfig: NuxtConfig = {
   target: 'static',
 
   publicRuntimeConfig: {
-    env: process.env.ENV || '',
+    env: process.env.ENV || null,
     email: process.env.TEST_EMAIL,
     pass: process.env.TEST_PASSWORD,
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'The Blue - 君とみた青空の先は',
+    title:
+      'The Blue - 君とみた青空の先は' +
+      (process.env.ENV ? ' (' + process.env.ENV + ')' : ''),
     htmlAttrs: {
       lang: 'ja',
     },
@@ -64,8 +66,10 @@ const nuxtConfig: NuxtConfig = {
     manifest: {
       name: 'The Blue - 君とみた青空の先は',
       title: 'The Blue - 君とみた青空の先は',
-      short_name: 'The Blue',
-      'og:title': 'The Blue',
+      short_name:
+        'The Blue' + (process.env.ENV ? ' (' + process.env.ENV + ')' : ''),
+      'og:title':
+        'The Blue' + (process.env.ENV ? ' (' + process.env.ENV + ')' : ''),
       description: 'ATPプロトコル対応 Bluesky WEBクライアント',
       'og:description': 'ATPプロトコル対応 Bluesky WEBクライアント',
       lang: 'ja',

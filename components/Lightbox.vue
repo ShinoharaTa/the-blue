@@ -3,7 +3,8 @@
     <div class="swiper-wrapper">
       <div class="swiper-slide" v-for="image in lightboxImages" :key="image.id">
         <div class="image-container">
-          <img :src="image.fullsize" class="">
+          <img :src="image.fullsize" class="img-fluid">
+          <!-- {{image}} -->
         </div>
       </div>
     </div>
@@ -13,7 +14,7 @@
 <script>
 import Swiper from 'swiper'
 import 'swiper/swiper-bundle.css'
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   mounted() {
@@ -44,6 +45,7 @@ export default {
 <style scoped>
 .image-container {
   max-height: 70vh;
+  max-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;

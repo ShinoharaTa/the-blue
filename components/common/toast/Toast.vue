@@ -8,25 +8,28 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapMutations } from 'vuex'
 
 export default Vue.extend({
   props: {
-    message: {
-      type: String,
-      default: '',
-    },
-    status: {
-      type: String,
-      default: '',
-    },
-    id: {
-      type: String,
-      default: '',
-    },
+    notification: {
+      type: Object as () => Toast,
+      required: true,
+      default: {
+        id: "",
+        message: "",
+        status: "",
+      }
+    }
+  },
+  methods: {
+    ...mapMutations({
+      removeNotification: 'removeNotification',
+    }),
   },
   created() {
     setInterval(() => {
-      this.$emit('remove', this.id)
+      this.removeNotification({id: this.notification.id})
     }, 3000)
   },
 })

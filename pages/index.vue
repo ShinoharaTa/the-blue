@@ -1,5 +1,11 @@
 <template>
   <div>
+    <header-outline>
+      <button class="btn btn-theme-outline" type="submit" @click="getTimeline(100)">
+        <fa-icon :icon="['fas', 'arrows-rotate']" />
+        Reload
+      </button>
+    </header-outline>
     <div class="max-width mx-auto">
       <note
         :note="note"
@@ -9,6 +15,10 @@
       />
     </div>
     <div class="p-5"></div>
+    <overlay v-if="post" :close="true" @close="post = false">
+      <postarea @close="posted"></postarea>
+    </overlay>
+  </div>
   </div>
 </template>
 

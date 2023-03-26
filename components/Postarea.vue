@@ -45,10 +45,7 @@
           style="display: none"
         />
         <button @click="inputImages" class="btn bg-white">
-          <fa-icon
-            :icon="['far', 'image']"
-            class="fa-fw text-theme"
-          ></fa-icon>
+          <fa-icon :icon="['far', 'image']" class="fa-fw text-theme"></fa-icon>
           {{ images.length }} / 4
         </button>
       </div>
@@ -132,7 +129,9 @@ export default Vue.extend({
         reader.readAsDataURL(file)
       })
     },
-    removeImage(index: number) {},
+    removeImage(index: number) {
+      this.images.splice(index, 1);
+    },
     postNote: async function () {
       try {
         let params: any = {

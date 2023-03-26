@@ -23,13 +23,10 @@ export default Vue.extend({
     }
   },
   methods: {
-    ...mapMutations({
-      removeNotification: 'removeNotification',
-    }),
   },
   created() {
     setInterval(() => {
-      this.removeNotification({id: this.notification.id})
+      this.$accessor.removeNotification({id: this.notification.id})
     }, 3000)
   },
 })

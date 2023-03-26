@@ -1,39 +1,28 @@
 <template>
-  <div class="fixed-bottom">
-    <div class="footer-outline">
-      <div class="button-outline max-width mx-auto">
-        <div class="me-3 mb-3 write-button">
-          <button class="post-icon btn-theme" @click="$emit('postClick')">
-            <fa-icon :icon="['fas', 'rocket']" class="fa-lg" />
-          </button>
+  <div class="fixed-bottom p-2 px-4 glass">
+    <div class="row max-width mx-auto">
+      <div class="col">
+        <div class="footer-icon active">
+          <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
         </div>
       </div>
-      <div class="p-2 px-4 glass g-0">
-        <div class="row max-width mx-auto">
-          <div class="col">
-            <div class="footer-icon active">
-              <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
-            </div>
-          </div>
-          <div class="col">
-            <div class="footer-icon">
-              <fa-icon :icon="['fas', 'image']" class="fa-lg"></fa-icon>
-            </div>
-          </div>
-          <div class="col">
-            <div class="footer-icon">
-              <fa-icon :icon="['fas', 'bell']" class="fa-lg"></fa-icon>
-            </div>
-          </div>
-          <div class="col">
-            <div class="footer-icon">
-              <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
-            </div>
-          </div>
+      <div class="col">
+        <div class="footer-icon">
+          <fa-icon :icon="['fas', 'image']" class="fa-lg"></fa-icon>
         </div>
-        <div class="ios-padding"></div>
+      </div>
+      <div class="col">
+        <div class="footer-icon">
+          <fa-icon :icon="['fas', 'bell']" class="fa-lg"></fa-icon>
+        </div>
+      </div>
+      <div class="col">
+        <div class="footer-icon">
+          <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
+        </div>
       </div>
     </div>
+    <div class="ios-padding"></div>
   </div>
 </template>
 
@@ -54,8 +43,8 @@ export default Vue.extend({})
   align-items: center;
   &.active {
     background: #fff;
-    border: 2px solid #0089A7;
-    color: #0089A7;
+    border: 2px solid #0089a7;
+    color: #0089a7;
   }
 }
 
@@ -65,30 +54,7 @@ export default Vue.extend({})
   align-items: center;
 }
 
-.button-outline {
-  position: relative;
-
-}
-.write-button {
-  position: absolute;
-  top: -1rem;
-  right: 1.5rem;
-  transform: translate(50%, -100%);
-  -webkit-transform: translate(50%, -100%);
-  -ms-transform: translate(50%, -100%);
-}
-
-.post-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.ios-padding{
+.ios-padding {
   // padding-left: calc(env(safe-area-inset-left) + 8px);
   // padding-top: calc(env(safe-area-inset-top) + 8px);
   // padding-right: calc(env(safe-area-inset-right) + 8px);

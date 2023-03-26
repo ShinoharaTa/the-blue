@@ -64,14 +64,14 @@ export default Vue.extend({
 <style>
 .circle-bg {
   fill: none;
-  stroke: #ddd;
+  stroke: #fff;
   stroke-width: 5;
   stroke-linecap: round;
 }
 
 .circle {
   fill: none;
-  stroke: #007bff;
+  stroke: #0089a7;
   stroke-width: 5;
   stroke-linecap: round;
   transform: rotate(-90deg);

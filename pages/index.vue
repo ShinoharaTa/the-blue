@@ -1,7 +1,11 @@
 <template>
   <div>
     <header-outline>
-      <button class="btn btn-theme-outline" type="submit" @click="getTimeline(100)">
+      <button
+        class="btn btn-theme-outline"
+        type="submit"
+        @click="getTimeline(100)"
+      >
         <fa-icon :icon="['fas', 'arrows-rotate']" />
         Reload
       </button>
@@ -15,10 +19,18 @@
       />
     </div>
     <div class="p-5"></div>
-    <overlay v-if="post" :close="true" @close="post = false">
-      <postarea @close="posted"></postarea>
+    <div class="fixed-bottom mb-5 pb-3">
+      <div class="button-outline max-width mx-auto">
+        <div class="me-3 mb-3 write-button">
+          <button class="post-icon btn-theme" @click="post = true">
+            <fa-icon :icon="['fas', 'rocket']" class="fa-lg" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <overlay v-if="post">
+      <postarea @close="close"></postarea>
     </overlay>
-  </div>
   </div>
 </template>
 
@@ -60,6 +72,36 @@ export default Vue.extend({
       this.timeline[index].post = Object.assign({}, res)
     },
     checkNewPost: async function () {},
+    close: function (result: any) {
+      this.post = false
+      if (result) {
+        console.log(true)
+      }
+    },
   },
 })
 </script>
+
+<style scoped>
+.button-outline {
+  position: relative;
+}
+.write-button {
+  position: absolute;
+  top: -1rem;
+  right: 1.5rem;
+  transform: translate(50%, -100%);
+  -webkit-transform: translate(50%, -100%);
+  -ms-transform: translate(50%, -100%);
+}
+
+.post-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

@@ -2,7 +2,7 @@
   <div>
     <Nuxt />
     <div class="p-5"></div>
-    <footer-outline @postClick="post = true"></footer-outline>
+    <footer-outline></footer-outline>
     <overlay v-if="showLightBox" :close="true" @close="closeLightBox()">
       <lightbox></lightbox>
     </overlay>

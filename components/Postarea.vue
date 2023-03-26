@@ -1,5 +1,14 @@
 <template>
   <div class="postarea px-3">
+    <div class="d-flex justify-content-end mb-3">
+      <button
+        class="btn bg-white d-flex align-items-center px-3"
+        @click="$emit('close', false)"
+      >
+        <fa-icon :icon="['fas', 'xmark']"></fa-icon>
+        <div class="ms-2">Close</div>
+      </button>
+    </div>
     <div class="textarea">
       <textarea
         rows="9"
@@ -10,7 +19,7 @@
       ></textarea>
     </div>
     <div class="mt-2">
-      <div class="row g-1 px-2">
+      <div class="row g-1">
         <div
           v-for="(image, index) in images"
           :key="index"
@@ -27,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="d-flex px-2 justify-content-between align-items-center mt-2">
+    <div class="d-flex justify-content-between align-items-center mt-2">
       <div>
         <input
           type="file"
@@ -38,7 +47,7 @@
         <button @click="inputImages" class="btn bg-white">
           <fa-icon
             :icon="['far', 'image']"
-            class="fa-fw text-primary"
+            class="fa-fw text-theme"
           ></fa-icon>
           {{ images.length }} / 4
         </button>
@@ -47,7 +56,7 @@
         <post-counter :text="post" class=""></post-counter>
         <button
           @click="postNote()"
-          class="ms-2 btn btn-primary"
+          class="ms-2 btn btn-theme"
           :disabled="postButtonDisabled"
         >
           <fa-icon :icon="['fas', 'rocket']" class="fa-fw" />
@@ -125,28 +134,32 @@ export default Vue.extend({
     },
     removeImage(index: number) {},
     postNote: async function () {
-      let params: any = {
-        text: this.post,
-      }
-      this.processing = true
-      this.post = ''
-      if (this.images.length > 0) {
-        let embed: AppBskyEmbedImages.Main = {
-          $type: 'app.bsky.embed.images',
-          images: [],
+      try {
+        let params: any = {
+          text: this.post,
         }
-        embed.images = await Promise.all(
-          this.images.map(async (image) => {
-            const res = await this.$atp.upImage(image.blob)
-            console.log(res)
-            return { image: res, alt: '' }
-          })
-        )
-        params.embed = embed
+        this.processing = true
+        if (this.images.length > 0) {
+          let embed: AppBskyEmbedImages.Main = {
+            $type: 'app.bsky.embed.images',
+            images: [],
+          }
+          embed.images = await Promise.all(
+            this.images.map(async (image) => {
+              const res = await this.$atp.upImage(image.blob)
+              if (!res) throw new Error('images up error.')
+              return { image: res, alt: '' }
+            })
+          )
+          params.embed = embed
+        }
+        await this.$atp.post(params)
+        this.processing = false
+        this.post = ''
+        this.$emit('close', true)
+      } catch (e) {
+        console.log(e)
       }
-      await this.$atp.post(params)
-      this.processing = false
-      this.$emit('close', true)
     },
   },
   computed: {

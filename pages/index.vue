@@ -19,8 +19,8 @@
       />
     </div>
     <div class="p-5"></div>
-    <div class="fixed-bottom mb-5 pb-3 ios-padding">
-      <div class="button-outline max-width mx-auto">
+    <div class="fixed-bottom mb-5 pb-3">
+      <div class="button-outline max-width mx-auto ios-padding">
         <div class="me-3 mb-3 write-button">
           <button class="post-icon btn-theme" @click="post = true">
             <fa-icon :icon="['fas', 'rocket']" class="fa-lg" />

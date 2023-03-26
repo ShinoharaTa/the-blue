@@ -1,8 +1,11 @@
 <template>
-  <div class="page fixed-top">
+  <div class="page fixed-top" :class="centered">
     <div class="content flex-fill">
       <div class="d-flex justify-content-end px-3" v-if="close">
-        <button class="btn bg-white d-flex align-items-center px-3" @click="closeAction">
+        <button
+          class="btn bg-white d-flex align-items-center px-3"
+          @click="closeAction"
+        >
           <fa-icon :icon="['fas', 'xmark']"></fa-icon>
           <div class="ms-2">Close</div>
         </button>
@@ -19,9 +22,13 @@ import Vue from 'vue'
 
 export default Vue.extend({
   props: {
-    close:{
+    close: {
       type: Boolean,
       default: false,
+    },
+    position: {
+      type: String,
+      default: null,
     },
   },
   data() {
@@ -30,10 +37,15 @@ export default Vue.extend({
   beforeMount() {},
   methods: {
     closeAction: function () {
-      this.$emit("close");
+      this.$emit('close')
     },
   },
   beforeDestroy() {},
+  computed: {
+    centered: function () {
+      return this.position ? this.position : 'center'
+    },
+  },
 })
 </script>
 
@@ -45,8 +57,11 @@ export default Vue.extend({
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
   z-index: 5000;
+}
+
+.center {
+  align-items: center;
 }
 
 .content {

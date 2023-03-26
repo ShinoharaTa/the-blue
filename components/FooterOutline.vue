@@ -53,11 +53,4 @@ export default Vue.extend({})
   justify-content: center;
   align-items: center;
 }
-
-.ios-padding {
-  // padding-left: calc(env(safe-area-inset-left) + 8px);
-  // padding-top: calc(env(safe-area-inset-top) + 8px);
-  // padding-right: calc(env(safe-area-inset-right) + 8px);
-  padding-bottom: calc(env(safe-area-inset-bottom));
-}
 </style>

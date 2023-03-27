@@ -1,42 +1,26 @@
 import moment from 'moment'
 // https://qiita.com/shindex/items/a90217b9e4c03c5b5215
 
-import {
-  getAccessorType,
-  actionTree,
-  mutationTree,
-  getterTree,
-} from 'typed-vuex'
-
 export const state = () => ({
-  overlay: false as Boolean,
+  overlay: false as boolean,
   lightboxImages: null as Array<Image> | null,
   notifications: [] as Array<Toast>,
 })
 
-// export type RootState = ReturnType<typeof state>
+export type RootState = ReturnType<typeof state>
 
-export const getters = getterTree(state, {
-  overlayView: (state) => state.overlay,
-  lightboxImages: (state) => state.lightboxImages,
-  notifications: (state) => state.notifications,
-})
-
-export const mutations = mutationTree(state, {
-  setOverlay(state, value: boolean) {
+export const mutations = {
+  setOverlay(state: RootState, value: boolean) {
     state.overlay = value
   },
   setLightboxImages(
-    state,
+    state: RootState,
     params: { images: Array<Image> | null; page: number }
   ) {
     state.lightboxImages = params.images
     console.log(params.page)
   },
-  addNotification(
-    state,
-    params: { message: string; status: string }
-  ) {
+  addNotification(state: RootState, params: { message: string; status: string }) {
     const created = moment().format('HHmmss') + moment().milliseconds()
     state.notifications.push({
       message: params.message,
@@ -44,7 +28,7 @@ export const mutations = mutationTree(state, {
       id: created,
     })
   },
-  removeNotification(state, params: { id: string }) {
+  removeNotification(state: RootState, params: { id: string }) {
     const index = state.notifications.findIndex(
       (notify) => notify.id === params.id
     )
@@ -52,21 +36,17 @@ export const mutations = mutationTree(state, {
       state.notifications.splice(index, 1)
     }
   },
-})
+}
 
-export const actions = actionTree(
-  { state, getters, mutations },
-  {
-    getTimeline({ commit }) {
-      // this.app.$atp.getTimeline(){
-      // }
-    },
-  }
-)
+export const actions = {
+  getTimeline({ commit }: { commit: Function }) {
+    // this.app.$atp.getTimeline(){
+    // }
+  },
+}
 
-export const accessorType = getAccessorType({
-  state,
-  getters,
-  mutations,
-  actions,
-})
+export const getters = {
+  overlayView: (state: RootState) => state.overlay,
+  lightboxImages: (state: RootState) => state.lightboxImages,
+  notifications: (state: RootState) => state.notifications,
+}

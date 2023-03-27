@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed-top">
+  <div class="fixed-top toast-group">
     <transition-group name="slide-up" tag="div">
       <toast
         v-for="notification in notifications"
@@ -22,3 +22,18 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.toast-group {
+  z-index: 9999;
+}
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.5s ease;
+}
+.slide-up-enter,
+.slide-up-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+</style>

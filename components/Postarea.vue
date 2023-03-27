@@ -105,16 +105,16 @@ export default Vue.extend({
       }
     },
     async handlePaste(event: ClipboardEvent) {
-      if (this.images.length >= 4) {
-        this.$accessor.addNotification({
-          message: '画像は4枚まで登録可能です',
-          status: 'error',
-        })
-        return
-      }
       const items = event.clipboardData!.items
       for (let i = 0; i < items.length; i++) {
         if (items[i].type.startsWith('image/')) {
+          if (this.images.length >= 4) {
+            this.$store.commit('addNotification', {
+              message: '画像は4枚まで登録可能です',
+              status: 'error',
+            })
+            return
+          }
           const blob = items[i].getAsFile() as Blob
           await this.addImage(blob)
           break
@@ -170,8 +170,8 @@ export default Vue.extend({
     },
   },
   computed: {
-    postButtonDisabled: function () {
-      return !this.post.trim() || this.processing
+    postButtonDisabled: function (): boolean {
+      return !this.post.trim() || this.processing || this.post.length > 256
     },
   },
 })

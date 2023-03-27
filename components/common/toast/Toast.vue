@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto my-2">
-    <div class="mx-3 infomation glass" :class="status">
-      {{ message }}
+    <div class="mx-3 infomation glass" :class="notification.status">
+      {{ notification.message }}
     </div>
   </div>
 </template>
@@ -16,17 +16,16 @@ export default Vue.extend({
       type: Object as () => Toast,
       required: true,
       default: {
-        id: "",
-        message: "",
-        status: "",
-      }
-    }
+        id: '',
+        message: '',
+        status: '',
+      },
+    },
   },
-  methods: {
-  },
+  methods: {},
   created() {
     setInterval(() => {
-      this.$accessor.removeNotification({id: this.notification.id})
+      this.$store.commit('removeNotification', { id: this.notification.id })
     }, 3000)
   },
 })

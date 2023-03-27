@@ -46,15 +46,3 @@ export default Vue.extend({
   },
 })
 </script>
-
-<style scoped>
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: all 0.5s ease;
-}
-.slide-up-enter,
-.slide-up-leave-to {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-</style>

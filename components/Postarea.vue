@@ -91,6 +91,7 @@ export default Vue.extend({
   },
   methods: {
     inputImages() {
+      if (this.images.length >= 4) return
       ;(this.$refs.fileInput as HTMLInputElement).click()
     },
     onFileChange(event: Event) {
@@ -104,6 +105,13 @@ export default Vue.extend({
       }
     },
     async handlePaste(event: ClipboardEvent) {
+      if (this.images.length >= 4) {
+        this.$accessor.addNotification({
+          message: '画像は4枚まで登録可能です',
+          status: 'error',
+        })
+        return
+      }
       const items = event.clipboardData!.items
       for (let i = 0; i < items.length; i++) {
         if (items[i].type.startsWith('image/')) {
@@ -130,7 +138,7 @@ export default Vue.extend({
       })
     },
     removeImage(index: number) {
-      this.images.splice(index, 1);
+      this.images.splice(index, 1)
     },
     postNote: async function () {
       try {

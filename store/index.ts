@@ -14,7 +14,7 @@ export const state = () => ({
   notifications: [] as Array<Toast>,
 })
 
-export type RootState = ReturnType<typeof state>
+// export type RootState = ReturnType<typeof state>
 
 export const getters = getterTree(state, {
   overlayView: (state) => state.overlay,
@@ -22,29 +22,29 @@ export const getters = getterTree(state, {
   notifications: (state) => state.notifications,
 })
 
-export const mutations = {
-  setOverlay(state: RootState, value: boolean) {
+export const mutations = mutationTree(state, {
+  setOverlay(state, value: boolean) {
     state.overlay = value
   },
   setLightboxImages(
-    state: RootState,
+    state,
     params: { images: Array<Image> | null; page: number }
   ) {
     state.lightboxImages = params.images
     console.log(params.page)
   },
   addNotification(
-    state: RootState,
+    state,
     params: { message: string; status: string }
   ) {
-    let created = moment().format('HHmmss') + moment().milliseconds()
+    const created = moment().format('HHmmss') + moment().milliseconds()
     state.notifications.push({
       message: params.message,
       status: params.status,
       id: created,
     })
   },
-  removeNotification(state: RootState, params: { id: string }) {
+  removeNotification(state, params: { id: string }) {
     const index = state.notifications.findIndex(
       (notify) => notify.id === params.id
     )
@@ -52,7 +52,8 @@ export const mutations = {
       state.notifications.splice(index, 1)
     }
   },
-}
+})
+
 export const actions = actionTree(
   { state, getters, mutations },
   {
@@ -62,13 +63,10 @@ export const actions = actionTree(
     },
   }
 )
+
 export const accessorType = getAccessorType({
   state,
   getters,
   mutations,
   actions,
-  modules: {
-    // import したサブモジュールはここに記述します。
-    // age,
-  },
 })

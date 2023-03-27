@@ -3,6 +3,7 @@ import moment from 'moment'
 
 export const state = () => ({
   overlay: false as boolean,
+  loading: false as boolean,
   lightboxImages: null as Array<Image> | null,
   notifications: [] as Array<Toast>,
 })
@@ -20,7 +21,13 @@ export const mutations = {
     state.lightboxImages = params.images
     console.log(params.page)
   },
-  addNotification(state: RootState, params: { message: string; status: string }) {
+  setLoading(state: RootState, status: boolean) {
+    state.loading = status
+  },
+  addNotification(
+    state: RootState,
+    params: { message: string; status: string }
+  ) {
     const created = moment().format('HHmmss') + moment().milliseconds()
     state.notifications.push({
       message: params.message,
@@ -49,4 +56,5 @@ export const getters = {
   overlayView: (state: RootState) => state.overlay,
   lightboxImages: (state: RootState) => state.lightboxImages,
   notifications: (state: RootState) => state.notifications,
+  loading: (state: RootState) => state.loading,
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="postarea px-3">
+  <div class="postarea px-3" v-if="!processing">
     <div class="d-flex justify-content-end mb-3">
       <button
         class="btn bg-white d-flex align-items-center px-3"
@@ -62,13 +62,17 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <spinner />
+  </div>
 </template>
 
 <script lang="ts">
 import { AppBskyEmbedImages } from '@atproto/api'
 import Vue from 'vue'
 import PostCounter from './PostCounter.vue'
-import pica from 'pica';
+// import Spinner from '~/components/Spinner.vue'
+import pica from 'pica'
 
 interface image {
   blob: Blob
@@ -126,46 +130,76 @@ export default Vue.extend({
       const dataUrl = await this.readFileAsDataURL(blob)
       this.images.push({ blob, dataUrl })
     },
-    async resizeImage(imageFile: Blob): Promise<Blob> {
+    async getResizedAndCompressedBlob(
+      blob: Blob,
+      maxWidth: number,
+      maxHeight: number,
+      mimeType: string,
+      maxSize: number
+    ): Promise<Blob> {
+      const img = await this.blobToImage(blob)
+
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')!
+      const resizedDimensions = this.getResizedDimensions(
+        img.width,
+        img.height,
+        maxWidth,
+        maxHeight
+      )
+      canvas.width = resizedDimensions.width
+      canvas.height = resizedDimensions.height
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        img.width,
+        img.height,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      )
+
+      let quality = 1.0
+      let resizedBlob = await pica().toBlob(canvas, mimeType, quality)
+
+      while (resizedBlob.size > maxSize && quality > 0) {
+        quality -= 0.05
+        resizedBlob = await pica().toBlob(canvas, mimeType, quality)
+      }
+
+      return resizedBlob
+    },
+    getResizedDimensions(
+      width: number,
+      height: number,
+      maxWidth: number,
+      maxHeight: number
+    ): { width: number; height: number } {
+      if (width <= maxWidth && height <= maxHeight) {
+        return { width, height }
+      }
+
+      const aspectRatio = width / height
+
+      if (width > height) {
+        return { width: maxWidth, height: Math.round(maxWidth / aspectRatio) }
+      } else {
+        return { width: Math.round(maxHeight * aspectRatio), height: maxHeight }
+      }
+    },
+
+    blobToImage(blob: Blob): Promise<HTMLImageElement> {
       return new Promise((resolve, reject) => {
         const img = new Image()
-        img.src = URL.createObjectURL(imageFile)
-
+        img.src = URL.createObjectURL(blob)
         img.onload = () => {
-          const maxWidthOrHeight = 2000
-          const { width, height } = img
-
-          if (width <= maxWidthOrHeight && height <= maxWidthOrHeight) {
-            resolve(imageFile)
-            return
-          }
-
-          const aspectRatio = width / height
-          let newWidth = width
-          let newHeight = height
-
-          if (width > height) {
-            newWidth = maxWidthOrHeight
-            newHeight = Math.round(newWidth / aspectRatio)
-          } else {
-            newHeight = maxWidthOrHeight
-            newWidth = Math.round(newHeight * aspectRatio)
-          }
-
-          const canvas = document.createElement('canvas')
-          canvas.width = newWidth
-          canvas.height = newHeight
-
-          const picaInstance = pica()
-          picaInstance
-            .resize(img, canvas)
-            .then(() => picaInstance.toBlob(canvas, imageFile.type, 0.9))
-            .then(resolve)
-            .catch(reject)
+          resolve(img)
         }
-
-        img.onerror = (error) => {
-          reject(error)
+        img.onerror = (e) => {
+          reject(new Error('Failed to load image.'))
         }
       })
     },
@@ -190,6 +224,7 @@ export default Vue.extend({
           text: this.post,
         }
         this.processing = true
+        // this.$store.commit('setLoading', true)
         if (this.images.length > 0) {
           let embed: AppBskyEmbedImages.Main = {
             $type: 'app.bsky.embed.images',
@@ -197,7 +232,13 @@ export default Vue.extend({
           }
           embed.images = await Promise.all(
             this.images.map(async (image) => {
-              const resizedImageBlob = await this.resizeImage(image.blob)
+              const resizedImageBlob = await this.getResizedAndCompressedBlob(
+                image.blob,
+                2000,
+                2000,
+                'image/jpeg',
+                970 * 1024
+              ) // 970KB
               const res = await this.$atp.upImage(resizedImageBlob)
               if (!res) throw new Error('images up error.')
               return { image: res, alt: '' }
@@ -206,11 +247,17 @@ export default Vue.extend({
           params.embed = embed
         }
         await this.$atp.post(params)
-        this.processing = false
         this.post = ''
         this.$emit('close', true)
       } catch (e) {
+        this.$store.commit('addNotification', {
+          message: '投稿に失敗しました',
+          status: 'error',
+        })
         console.log(e)
+      } finally {
+        this.processing = false
+        // this.$store.commit('setLoading', false)
       }
     },
   },

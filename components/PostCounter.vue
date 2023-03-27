@@ -76,7 +76,7 @@ export default Vue.extend({
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
-  transition: stroke-dasharray 0.5s ease 0s, stroke 0.5s ease;
+  transition: stroke-dasharray 0.2s ease 0s, stroke 0.2s ease;
 }
 
 .circle.red {

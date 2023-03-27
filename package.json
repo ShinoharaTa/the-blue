@@ -35,7 +35,9 @@
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/pwa": "^3.3.5",
+    "@types/pica": "^9.0.1",
     "eslint-config-prettier": "^8.5.0",
+    "pica": "^9.0.1",
     "prettier": "^2.7.1"
   }
 }

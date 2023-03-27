@@ -68,6 +68,7 @@
 import { AppBskyEmbedImages } from '@atproto/api'
 import Vue from 'vue'
 import PostCounter from './PostCounter.vue'
+import pica from 'pica';
 
 interface image {
   blob: Blob
@@ -125,6 +126,49 @@ export default Vue.extend({
       const dataUrl = await this.readFileAsDataURL(blob)
       this.images.push({ blob, dataUrl })
     },
+    async resizeImage(imageFile: Blob): Promise<Blob> {
+      return new Promise((resolve, reject) => {
+        const img = new Image()
+        img.src = URL.createObjectURL(imageFile)
+
+        img.onload = () => {
+          const maxWidthOrHeight = 2000
+          const { width, height } = img
+
+          if (width <= maxWidthOrHeight && height <= maxWidthOrHeight) {
+            resolve(imageFile)
+            return
+          }
+
+          const aspectRatio = width / height
+          let newWidth = width
+          let newHeight = height
+
+          if (width > height) {
+            newWidth = maxWidthOrHeight
+            newHeight = Math.round(newWidth / aspectRatio)
+          } else {
+            newHeight = maxWidthOrHeight
+            newWidth = Math.round(newHeight * aspectRatio)
+          }
+
+          const canvas = document.createElement('canvas')
+          canvas.width = newWidth
+          canvas.height = newHeight
+
+          const picaInstance = pica()
+          picaInstance
+            .resize(img, canvas)
+            .then(() => picaInstance.toBlob(canvas, imageFile.type, 0.9))
+            .then(resolve)
+            .catch(reject)
+        }
+
+        img.onerror = (error) => {
+          reject(error)
+        }
+      })
+    },
     readFileAsDataURL(file: Blob) {
       return new Promise<string>((resolve, reject) => {
         const reader = new FileReader()
@@ -153,7 +197,8 @@ export default Vue.extend({
           }
           embed.images = await Promise.all(
             this.images.map(async (image) => {
-              const res = await this.$atp.upImage(image.blob)
+              const resizedImageBlob = await this.resizeImage(image.blob)
+              const res = await this.$atp.upImage(resizedImageBlob)
               if (!res) throw new Error('images up error.')
               return { image: res, alt: '' }
             })

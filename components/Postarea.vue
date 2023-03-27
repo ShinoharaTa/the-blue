@@ -43,6 +43,9 @@
           ref="fileInput"
           @change="onFileChange"
           style="display: none"
+          accept="image/*"
+          multiple
+          max="4"
         />
         <button @click="inputImages" class="btn bg-white">
           <fa-icon :icon="['far', 'image']" class="fa-fw text-theme"></fa-icon>

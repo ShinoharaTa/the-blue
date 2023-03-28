@@ -100,15 +100,21 @@ class atproto implements atProtoInterface {
     )
     return success ? data : null
   }
+  async getNotifications() {
+    const { success, data } = await this.agent.api.app.bsky.notification.list();
+    if (!success) {
+    }
+    return { notifications: data.notifications, cursor: data.cursor };
+  };
 
   async post(params: {
     text: string,
     urls?: { url: string; indices: [number, number] }[],
     embed?:
-      | AppBskyEmbedImages.Main
-      | AppBskyEmbedExternal.Main
-      | AppBskyEmbedRecord.Main
-      | { $type: string; [k: string]: unknown }
+    | AppBskyEmbedImages.Main
+    | AppBskyEmbedExternal.Main
+    | AppBskyEmbedRecord.Main
+    | { $type: string;[k: string]: unknown }
     // reply?: ReplyRef;
   }
   ) {
@@ -181,14 +187,15 @@ export interface atProtoInterface {
   getTimeline(params: { limit?: number; cursor?: string }): any
   getPost(params: { uri: string }): any
   getPostThread(params: { uri: string; depth?: number }): any
+  getNotifications(): any
   post(params: {
     text: string,
     urls?: { url: string; indices: [number, number] }[],
     embed?:
-      | AppBskyEmbedImages.Main
-      | AppBskyEmbedExternal.Main
-      | AppBskyEmbedRecord.Main
-      | { $type: string; [k: string]: unknown }
+    | AppBskyEmbedImages.Main
+    | AppBskyEmbedExternal.Main
+    | AppBskyEmbedRecord.Main
+    | { $type: string;[k: string]: unknown }
   }): any
   upImage(image: Blob): any
   repost(params: { uri: string; cid: string }): any

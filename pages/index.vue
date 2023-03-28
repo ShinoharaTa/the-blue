@@ -44,7 +44,6 @@ export default Vue.extend({
     return {
       timeline: [] as Array<any>,
       post: false as boolean,
-      notifications: [] as Array<any>,
     }
   },
   async beforeMount() {

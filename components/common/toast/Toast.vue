@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto my-2">
-    <div class="mx-3 infomation glass" :class="notification.status">
-      {{ notification.message }}
+    <div class="mx-3 infomation glass" :class="toast.status">
+      {{ toast.message }}
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@ import { mapMutations } from 'vuex'
 
 export default Vue.extend({
   props: {
-    notification: {
+    toast: {
       type: Object as () => Toast,
       required: true,
       default: {
@@ -25,7 +25,7 @@ export default Vue.extend({
   methods: {},
   created() {
     setInterval(() => {
-      this.$store.commit('removeNotification', { id: this.notification.id })
+      this.$store.commit('removeToast', { id: this.toast.id })
     }, 3000)
   },
 })

@@ -117,7 +117,7 @@ export default Vue.extend({
       for (let i = 0; i < items.length; i++) {
         if (items[i].type.startsWith('image/')) {
           if (this.images.length >= 4) {
-            this.$store.commit('addNotification', {
+            this.$store.commit('addToast', {
               message: '画像は4枚まで登録可能です',
               status: 'error',
             })
@@ -253,7 +253,7 @@ export default Vue.extend({
         this.post = ''
         this.$emit('close', true)
       } catch (e) {
-        this.$store.commit('addNotification', {
+        this.$store.commit('addToast', {
           message: '投稿に失敗しました',
           status: 'error',
         })

@@ -2,9 +2,9 @@
   <div class="fixed-top toast-group">
     <transition-group name="slide-up" tag="div">
       <toast
-        v-for="notification in notifications"
-        :key="notification.id"
-        :notification="notification"
+        v-for="toast in toasts"
+        :key="toast.id"
+        :toast="toast"
       ></toast>
     </transition-group>
   </div>
@@ -18,7 +18,7 @@ import Toast from "~/components/common/toast/Toast.vue"
 export default Vue.extend({
   components: { Toast },
   computed: {
-    ...mapGetters(['notifications']),
+    ...mapGetters(['toasts']),
   },
 })
 </script>

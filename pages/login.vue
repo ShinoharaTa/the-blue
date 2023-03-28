@@ -1,13 +1,17 @@
 <template>
   <div class="centering">
     <div class="login-form px-2">
-      <div class="logo">
-        The Blue
-      </div>
-      <div class="logo-caption">
-        君とみた青空の先は
-      </div>
+      <div class="logo">The Blue</div>
+      <div class="logo-caption">君とみた青空の先は</div>
       <div class="mt-5">
+        <!-- <input
+          type="text"
+          v-model="service"
+          class="form-control"
+          placeholder="Service Provider"
+        />
+      </div>
+      <div class="mt-3"> -->
         <input
           type="text"
           v-model="identifier"
@@ -37,14 +41,17 @@
 import Vue from 'vue'
 
 interface LoginForm {
+  service: string
   identifier: string
   password: string
   error: string
 }
 
 export default Vue.extend({
+  layout: 'single',
   data(): LoginForm {
     return {
+      service: 'bsky.social',
       identifier: '',
       password: '',
       error: '',
@@ -58,7 +65,11 @@ export default Vue.extend({
   },
   methods: {
     async login() {
-      let res = await this.$atp.login(this.identifier, this.password)
+      let res = await this.$atp.login(
+        this.identifier,
+        this.password,
+        this.service
+      )
       if (res) {
         this.$router.push('/')
       } else {
@@ -93,8 +104,7 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: linear-gradient(220.55deg, #00C0A9 0%, #7E6BAF 100%);
+  background: linear-gradient(220.55deg, #00c0a9 0%, #7e6baf 100%);
 }
 
 .login-form {

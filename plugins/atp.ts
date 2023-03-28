@@ -7,7 +7,10 @@ import {
   AtpSessionData,
 } from '@atproto/api'
 
-const COOKIE_KEY = 'AozoraUserData'
+const COOKIE_KEY = {
+  user_data: 'AozoraUserData',
+  service: 'AozoraService',
+}
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -27,24 +30,38 @@ class atproto implements atProtoInterface {
   private ctx
   constructor(ctx: Context) {
     this.ctx = ctx
+    const service = this.ctx.app.$cookies.get(COOKIE_KEY.service)
     this.agent = new AtpAgent({
-      service: 'https://bsky.social',
+      service: 'https://' + (service ? service : 'bsky.social'),
       persistSession: (evt, sess) => {
-        console.log('** 1:', typeof sess)
-        this.ctx.app.$cookies.set(COOKIE_KEY, sess, {
+        this.ctx.app.$cookies.set(COOKIE_KEY.user_data, sess, {
           maxAge: 60 * 60 * 24 * 7,
         })
       },
     })
+    this.ctx.app.$cookies.removeAll()
+    this.me = null
+    // this.ctx.app.$router.push('/login')
   }
 
-  async login(identifier: string, password: string) {
+  async login(identifier: string, password: string, service: string) {
     try {
+      this.agent = new AtpAgent({
+        service: 'https://' + service,
+        persistSession: (evt, sess) => {
+          this.ctx.app.$cookies.set(COOKIE_KEY.user_data, sess, {
+            maxAge: 60 * 60 * 24 * 7,
+          })
+        },
+      })
       const { success, data } = await this.agent.login({
         identifier: identifier,
         password: password,
       })
       this.me = data
+      this.ctx.app.$cookies.set(COOKIE_KEY.service, service, {
+        maxAge: 60 * 60 * 24 * 7,
+      })
       return success ? data : null
     } catch {
       return null
@@ -53,7 +70,9 @@ class atproto implements atProtoInterface {
   async hasSession() {
     const session = (() => {
       try {
-        const sessStr: AtpSessionData = this.ctx.app.$cookies.get(COOKIE_KEY)
+        const sessStr: AtpSessionData = this.ctx.app.$cookies.get(
+          COOKIE_KEY.user_data
+        )
         if (!sessStr) {
           return null
         }
@@ -101,23 +120,22 @@ class atproto implements atProtoInterface {
     return success ? data : null
   }
   async getNotifications() {
-    const { success, data } = await this.agent.api.app.bsky.notification.list();
+    const { success, data } = await this.agent.api.app.bsky.notification.list()
     if (!success) {
     }
-    return { notifications: data.notifications, cursor: data.cursor };
-  };
+    return { notifications: data.notifications, cursor: data.cursor }
+  }
 
   async post(params: {
-    text: string,
-    urls?: { url: string; indices: [number, number] }[],
+    text: string
+    urls?: { url: string; indices: [number, number] }[]
     embed?:
-    | AppBskyEmbedImages.Main
-    | AppBskyEmbedExternal.Main
-    | AppBskyEmbedRecord.Main
-    | { $type: string;[k: string]: unknown }
+      | AppBskyEmbedImages.Main
+      | AppBskyEmbedExternal.Main
+      | AppBskyEmbedRecord.Main
+      | { $type: string; [k: string]: unknown }
     // reply?: ReplyRef;
-  }
-  ) {
+  }) {
     return this.agent.api.app.bsky.feed.post.create(
       { did: this.me.did },
       {
@@ -182,20 +200,20 @@ const atp: Plugin = (context: Context, inject) => {
 export default atp
 
 export interface atProtoInterface {
-  login(identifier: string, password: string): any
+  login(identifier: string, password: string, service: string): any
   hasSession(): any
   getTimeline(params: { limit?: number; cursor?: string }): any
   getPost(params: { uri: string }): any
   getPostThread(params: { uri: string; depth?: number }): any
   getNotifications(): any
   post(params: {
-    text: string,
-    urls?: { url: string; indices: [number, number] }[],
+    text: string
+    urls?: { url: string; indices: [number, number] }[]
     embed?:
-    | AppBskyEmbedImages.Main
-    | AppBskyEmbedExternal.Main
-    | AppBskyEmbedRecord.Main
-    | { $type: string;[k: string]: unknown }
+      | AppBskyEmbedImages.Main
+      | AppBskyEmbedExternal.Main
+      | AppBskyEmbedRecord.Main
+      | { $type: string; [k: string]: unknown }
   }): any
   upImage(image: Blob): any
   repost(params: { uri: string; cid: string }): any

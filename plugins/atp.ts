@@ -39,21 +39,21 @@ class atproto implements atProtoInterface {
         })
       },
     })
-    this.ctx.app.$cookies.removeAll()
-    this.me = null
+    // this.ctx.app.$cookies.removeAll()
+    // this.me = null
     // this.ctx.app.$router.push('/login')
   }
 
   async login(identifier: string, password: string, service: string) {
     try {
-      this.agent = new AtpAgent({
-        service: 'https://' + service,
-        persistSession: (evt, sess) => {
-          this.ctx.app.$cookies.set(COOKIE_KEY.user_data, sess, {
-            maxAge: 60 * 60 * 24 * 7,
-          })
-        },
-      })
+      // this.agent = new AtpAgent({
+      //   service: 'https://' + service,
+      //   persistSession: (evt, sess) => {
+      //     this.ctx.app.$cookies.set(COOKIE_KEY.user_data, sess, {
+      //       maxAge: 60 * 60 * 24 * 7,
+      //     })
+      //   },
+      // })
       const { success, data } = await this.agent.login({
         identifier: identifier,
         password: password,

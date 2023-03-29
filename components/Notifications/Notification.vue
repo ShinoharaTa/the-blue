@@ -1,39 +1,66 @@
 <template>
-  <div class="mt-3">
-    <div class="d-flex">
-      <div v-if="item.type === 'vote'" class="icon me-2 vote">
-        <fa-icon :icon="['fas', 'star']" class="fa-fw" />
-      </div>
-      <div v-if="item.type === 'repost'" class="icon me-2 repost">
-        <fa-icon :icon="['fas', 'retweet']" class="fa-fw" />
-      </div>
-      <div class="icon me-2" v-for="author in item.author" :key="author.did">
-        <img :src="author.avatar" class="img-fluid" alt="" />
-      </div>
-    </div>
-    <div class="mt-2">{{ authorNames }}</div>
-    <div class="outline text-break" v-if="record">
+  <div class="d-flex px-3">
+    <div class="py-2 flex-fill">
       <div class="d-flex">
-        <div class="flex-shrink-0">
-          <img :src="record.author.avatar" class="img-fluid icon mt-1" />
+        <div :class="item.type" class="me-2 py-1 px-1 minimal">
+          <fa-icon :icon="['fas', 'retweet']" class="fa-fw" />
         </div>
-        <div class="ms-2 flex-fill">
-          <div class="name-handle">
-            <span class="display-name me-2">
-              {{ record.author.displayName }}
-            </span>
-            <span>
-              {{ record.author.handle }}
-            </span>
+        <div>
+          <div class="d-flex">
+            <div
+              class="icon me-2"
+              v-for="author in item.author.slice(0, 5)"
+              :key="author.did"
+            >
+              <img :src="author.avatar" class="img-fluid" alt="" />
+            </div>
+            <div class="icon me-2" v-if="item.author.length === 6">
+              <img :src="item.author[5].avatar" class="img-fluid" alt="" />
+            </div>
+            <div class="icon me-2" v-if="item.author.length > 6">
+              <div class="icon bg-light">more</div>
+            </div>
           </div>
-          <div class="">{{ timeString }}</div>
+          <div class="mt-1 text-break minimal">
+            <span v-for="(author, index) in displayAuthors" :key="index">
+              <template v-if="index === 2 && item.author.length > 3">
+                <span>他{{ item.author.length - 2 }}人</span>
+              </template>
+              <template v-else>
+                <span class="display-name">{{ author.displayName }}</span
+                >さん
+              </template>
+              <span v-if="index < displayAuthors.length - 1">、</span>
+            </span>
+            <span v-if="item.type === 'vote'">がふぁぼりました</span>
+            <span v-else-if="item.type === 'repost'">がリポりました</span>
+          </div>
         </div>
       </div>
-      <div class="mt-1">{{ replaceText }}</div>
-      <!-- {{ record }} -->
+      <div class="repost__outline mt-1">
+        <div class="outline text-break" v-if="record">
+          <!-- <div class="d-flex">
+            <div class="flex-shrink-0">
+              <img :src="record.author.avatar" class="img-fluid icon mt-1" />
+            </div>
+            <div class="ms-2 flex-fill">
+              <div class="name-handle">
+                <span class="display-name me-2">
+                  {{ record.author.displayName }}
+                </span>
+                <span>
+                  {{ record.author.handle }}
+                </span>
+              </div>
+              <div class="">{{ timeString }}</div>
+            </div>
+          </div> -->
+          <div class="mt-1">{{ replaceText }}</div>
+          <!-- {{ record }} -->
+        </div>
+      </div>
+      <!-- {{ item }} -->
     </div>
-
-    {{ item }}
   </div>
 </template>
 
@@ -54,33 +81,17 @@ export default Vue.extend({
       record: null,
     }
   },
-  async beforeMount () {
-    // this.record = 
-    await this.$atp.getPost(this.item.record.subject.uri)
+  async beforeMount() {
+    try {
+      this.record = await this.$atp.getPost({
+        uri: this.item.record.subject.uri,
+      })
+    } catch (error) {}
+    console.log(this.record)
   },
   computed: {
-    authorNames: function () {
-      let text: string = ''
-      if (this.item.author.length > 3) {
-        text += this.item.author[0].displayName + 'さん、'
-        text += this.item.author[1].displayName + 'さん、'
-        text += '他' + (this.item.author.length - 2) + '人'
-      } else if (this.item.author.length == 3) {
-        text += this.item.author[0].displayName + 'さん、'
-        text += this.item.author[1].displayName + 'さん、'
-        text += this.item.author[2].displayName + 'さん'
-      } else if (this.item.author.length == 2) {
-        text += this.item.author[0].displayName + 'さん、'
-        text += this.item.author[1].displayName + 'さん'
-      } else if (this.item.author.length == 1) {
-        text += this.item.author[0].displayName + 'さん'
-      }
-      if (this.item.type === 'vote') {
-        text += 'がふぁぼりました'
-      } else if (this.item.type === 'repost') {
-        text += 'がリポりました'
-      }
-      return text
+    displayAuthors() {
+      return this.item.author.length > 3 ? this.item.author.slice(0, 3) : this.item.author;
     },
     replaceText: function () {
       const text = this.record.record.text
@@ -120,23 +131,40 @@ export default Vue.extend({
 
 <style scoped>
 .icon {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
+  font-size: 0.5rem;
+  font-weight: 600;
+}
+
+.minimal {
+  font-size: 0.8rem;
 }
 
 .vote {
   color: #e2943b;
   background-color: #e2943b40;
+  border-radius: 7px;
 }
 
 .repost {
   color: #7ba23f;
   background-color: #7ba23f40;
+  border-radius: 7px;
+}
+
+.display-name {
+  /* font-family: 'strong'; */
+  font-weight: 600;
+}
+
+.outline {
+  padding: 0.2rem 0.5rem 0.5rem;
+  font-size: 0.8rem;
 }
 </style>

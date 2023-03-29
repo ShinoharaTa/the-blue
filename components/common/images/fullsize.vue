@@ -17,9 +17,6 @@ export default Vue.extend({
     images: []
   },
   computed: {
-    // count :function () {
-    //   return this.images.length
-    // }
     layoutClass() {
       // @ts-ignore
       return `layout-${this.images.length}`;

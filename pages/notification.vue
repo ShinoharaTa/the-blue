@@ -1,22 +1,6 @@
 <template>
   <div>
-    <!-- <header-outline>
-      <button
-        class="btn btn-theme-outline"
-        type="submit"
-        @click="getTimeline(100)"
-      >
-        <fa-icon :icon="['fas', 'arrows-rotate']" />
-        Reload
-      </button>
-    </header-outline> -->
     <div class="max-width mx-auto">
-      <!-- <note
-        :note="note"
-        v-for="note in timeline"
-        :key="note.id"
-        @reload="singleReload(note.post.uri)"
-      /> -->
       <notification
         v-for="notification in notifications"
         :key="notification.id"
@@ -24,19 +8,6 @@
       >
       </notification>
     </div>
-    <div class="p-5"></div>
-    <!-- <div class="fixed-bottom mb-5 pb-3">
-      <div class="button-outline max-width mx-auto ios-padding">
-        <div class="me-3 mb-3 write-button">
-          <button class="post-icon btn-theme" @click="post = true">
-            <fa-icon :icon="['fas', 'rocket']" class="fa-lg" />
-          </button>
-        </div>
-      </div>
-    </div> -->
-    <!-- <overlay v-if="post" position="top">
-      <postarea @close="close"></postarea>
-    </overlay> -->
   </div>
 </template>
 
@@ -65,7 +36,6 @@ export default Vue.extend({
   },
   created() {
     setInterval(() => {
-      // this.getTimeline(100);
     }, 15000)
   },
   methods: {

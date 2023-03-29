@@ -3,7 +3,7 @@
     <div class="py-2 flex-fill">
       <div class="d-flex">
         <div :class="item.type" class="me-2 py-1 px-1 minimal">
-          <fa-icon :icon="['fas', 'retweet']" class="fa-fw" />
+          <fa-icon :icon="typeIcon" class="fa-fw" />
         </div>
         <div>
           <div class="d-flex">
@@ -74,7 +74,9 @@ export default Vue.extend({
   },
   computed: {
     displayAuthors() {
-      return this.item.author.length > 3 ? this.item.author.slice(0, 3) : this.item.author;
+      return this.item.author.length > 3
+        ? this.item.author.slice(0, 3)
+        : this.item.author
     },
     replaceText: function () {
       const text = this.record.record.text
@@ -107,6 +109,16 @@ export default Vue.extend({
       return this.$moment(this.record.record.createdAt).format(
         'YYYY/MM/DD HH:mm'
       )
+    },
+    typeIcon: function () {
+      let ret: Array<string> = []
+      switch (this.item.type) {
+        case 'repost':
+          ret = ['fas', 'retweet']
+        case 'vote':
+          ret = ['fas', 'star']
+      }
+      return ret
     },
   },
 })

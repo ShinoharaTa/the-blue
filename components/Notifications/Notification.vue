@@ -39,24 +39,7 @@
       </div>
       <div class="repost__outline mt-1">
         <div class="outline text-break" v-if="record">
-          <!-- <div class="d-flex">
-            <div class="flex-shrink-0">
-              <img :src="record.author.avatar" class="img-fluid icon mt-1" />
-            </div>
-            <div class="ms-2 flex-fill">
-              <div class="name-handle">
-                <span class="display-name me-2">
-                  {{ record.author.displayName }}
-                </span>
-                <span>
-                  {{ record.author.handle }}
-                </span>
-              </div>
-              <div class="">{{ timeString }}</div>
-            </div>
-          </div> -->
-          <div class="mt-1">{{ replaceText }}</div>
-          <!-- {{ record }} -->
+          <div class="mt-1" v-html="replaceText"></div>
         </div>
       </div>
       <!-- {{ item }} -->
@@ -112,10 +95,10 @@ export default Vue.extend({
           }
           return match
         })
-        .replace(regex, (url: string) => {
-          const shortUrl = url.length > 32 ? url.slice(0, 32) + '...' : url
-          return ` <a href="${url}">${shortUrl}</a> `
-        })
+        // .replace(regex, (url: string) => {
+        //   const shortUrl = url.length > 32 ? url.slice(0, 32) + '...' : url
+        //   return ` <a href="${url}">${shortUrl}</a> `
+        // })
         .replace(/\n{3,}/g, '<br/><br/>')
         .replace(/\n/g, '<br/>')
       return processedText

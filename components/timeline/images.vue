@@ -1,5 +1,5 @@
 <template>
-  <div class="row g-1">
+  <!-- <div class="">
     <template v-if="images.length === 1">
       <div class="col">
         <img
@@ -9,79 +9,13 @@
         />
       </div>
     </template>
-    <template v-if="images.length === 2">
-      <div class="col">
-        <img
-          :src="images[0].thumb"
-          class="img_cover2 img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-        />
+  </div> -->
+  <div class="image-layout" :class="layoutClass">
+    <div v-for="(image, index) in images" :key="index" class="image-wrapper">
+      <div class="image">
+        <img :src="image.thumb" class="object-cover" />
       </div>
-      <div class="col">
-        <img
-          :src="images[1].thumb"
-          class="img_cover2 img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-        />
-      </div>
-    </template>
-    <template v-if="images.length === 3">
-      <div class="col">
-        <img
-          :src="images[0].thumb"
-          class="img_cover2 img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-        />
-      </div>
-      <div class="col">
-        <div class="row g-1">
-          <div class="col-12">
-            <img
-              :src="images[1].thumb"
-              class="img_cover img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-            />
-          </div>
-          <div class="col-12">
-            <img
-              :src="images[2].thumb"
-              class="img_cover img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-            />
-          </div>
-        </div>
-      </div>
-    </template>
-    <template v-if="images.length === 4">
-      <div class="col-6">
-        <img
-          :src="images[0].thumb"
-          class="img_cover img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-        />
-      </div>
-      <div class="col-6">
-        <img
-          :src="images[1].thumb"
-          class="img_cover img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-        />
-      </div>
-      <div class="col-6">
-        <img
-          :src="images[2].thumb"
-          class="img_cover img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-        />
-      </div>
-      <div class="col-6">
-        <img
-          :src="images[3].thumb"
-          class="img_cover img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-        />
-      </div>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -97,6 +31,9 @@ export default Vue.extend({
     // count :function () {
     //   return this.images.length
     // }
+    layoutClass() {
+      return `layout-${this.images.length}`;
+    },
   },
   methods: {
     ...mapMutations({
@@ -107,14 +44,51 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.img_cover {
-  object-fit: cover;
-  aspect-ratio: 16 / 10;
+.image-layout {
+  display: grid;
+  grid-gap: 1rem;
+  width: 100%;
+  padding-bottom: 62.5%;
+  position: relative;
+  overflow: hidden;
 }
 
-.img_cover2 {
-  object-fit: cover;
-  aspect-ratio: 8 / 10;
+.image-layout .image-wrapper {
+  position: relative;
+  width: 100%;
   height: 100%;
+  overflow: hidden;
+}
+
+.image-layout .image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.image-layout .object-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.layout-1 {
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+}
+
+.layout-2 {
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.layout-3 {
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
+}
+
+.layout-4 {
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 </style>

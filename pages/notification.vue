@@ -44,7 +44,7 @@ export default Vue.extend({
       if (data) {
         console.log(data)
         this.notifications = {}
-        data.notifications.forEach((item) => {
+        data.notifications.forEach((item: any) => {
           if (item.reason === 'vote' || item.reason === 'repost') {
             console.log(item)
             const cid = item.record.subject.cid

@@ -1,15 +1,4 @@
 <template>
-  <!-- <div class="">
-    <template v-if="images.length === 1">
-      <div class="col">
-        <img
-          :src="images[0].thumb"
-          class="img_cover img-fluid"
-          @click="setLightboxImages({ images: images, page: 0 })"
-        />
-      </div>
-    </template>
-  </div> -->
   <div class="image-layout" :class="layoutClass">
     <div v-for="(image, index) in images" :key="index" class="image-wrapper">
       <div class="image">
@@ -21,17 +10,18 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default Vue.extend({
   props: {
-    images: [],
+    images: []
   },
   computed: {
     // count :function () {
     //   return this.images.length
     // }
     layoutClass() {
+      // @ts-ignore
       return `layout-${this.images.length}`;
     },
   },

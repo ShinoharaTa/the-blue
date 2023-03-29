@@ -53,15 +53,13 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     item: {
-      default: {},
-    },
-    post: {
-      default: null,
+      type: Object,
+      default: () => {},
     },
   },
   data() {
     return {
-      record: null,
+      record: null as any | null,
     }
   },
   async beforeMount() {
@@ -79,6 +77,7 @@ export default Vue.extend({
         : this.item.author
     },
     replaceText: function () {
+      // @ts-ignore
       const text = this.record.record.text
       const regex = /(https?:\/\/[^\s]+)/g
       const processedText = text
@@ -106,6 +105,7 @@ export default Vue.extend({
       return processedText
     },
     timeString: function () {
+      // @ts-ignore
       return this.$moment(this.record.record.createdAt).format(
         'YYYY/MM/DD HH:mm'
       )
@@ -115,8 +115,10 @@ export default Vue.extend({
       switch (this.item.type) {
         case 'repost':
           ret = ['fas', 'retweet']
+          break;
         case 'vote':
           ret = ['fas', 'star']
+          break;
       }
       return ret
     },

@@ -46,27 +46,24 @@ export default Vue.extend({
 <style scoped>
 .image-layout {
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: 0.2rem;
   width: 100%;
-  padding-bottom: 62.5%;
+  /* padding-bottom: 62.5%; */
   position: relative;
   overflow: hidden;
 }
 
-.image-layout .image-wrapper {
+.image-wrapper {
   position: relative;
   width: 100%;
-  height: 100%;
   overflow: hidden;
+  padding-top: 62.5%;
 }
 
-.image-layout .image {
+.image-wrapper .object-cover {
   position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.image-layout .object-cover {
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -84,11 +81,15 @@ export default Vue.extend({
 
 .layout-3 {
   grid-template-rows: 1fr 1fr;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 .layout-4 {
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
+}
+
+.layout-3 .image-wrapper:nth-child(1) {
+  grid-row: 1 / 3;
 }
 </style>

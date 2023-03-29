@@ -33,7 +33,7 @@
           <div v-html="replaceText" class="text-break"></div>
         </div>
         <div v-if="images" class="image__outline mt-2">
-          <timeline-images :images="images" />
+          <common-images :images="images" />
         </div>
         <div v-if="record" class="repost__outline mt-2">
           <timeline-record :record="record" />
@@ -68,14 +68,14 @@ import Vue from 'vue'
 import comment from '@/components/icons/comment.vue'
 import repost from '@/components/icons/repost.vue'
 import favorite from '@/components/icons/favorite.vue'
-import TimelineImages from '@/components/timeline/images.vue'
+import CommonImages from '@/components/common/images/fullsize.vue'
 
 export default Vue.extend({
   components: {
     comment,
     repost,
     favorite,
-    TimelineImages,
+    CommonImages,
   },
   props: {
     note: {

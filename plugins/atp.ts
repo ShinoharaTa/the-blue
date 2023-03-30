@@ -130,10 +130,10 @@ class atproto implements atProtoInterface {
     text: string
     urls?: { url: string; indices: [number, number] }[]
     embed?:
-      | AppBskyEmbedImages.Main
-      | AppBskyEmbedExternal.Main
-      | AppBskyEmbedRecord.Main
-      | { $type: string; [k: string]: unknown }
+    | AppBskyEmbedImages.Main
+    | AppBskyEmbedExternal.Main
+    | AppBskyEmbedRecord.Main
+    | { $type: string;[k: string]: unknown }
     // reply?: ReplyRef;
   }) {
     return this.agent.api.app.bsky.feed.post.create(
@@ -210,10 +210,10 @@ export interface atProtoInterface {
     text: string
     urls?: { url: string; indices: [number, number] }[]
     embed?:
-      | AppBskyEmbedImages.Main
-      | AppBskyEmbedExternal.Main
-      | AppBskyEmbedRecord.Main
-      | { $type: string; [k: string]: unknown }
+    | AppBskyEmbedImages.Main
+    | AppBskyEmbedExternal.Main
+    | AppBskyEmbedRecord.Main
+    | { $type: string;[k: string]: unknown }
   }): any
   upImage(image: Blob): any
   repost(params: { uri: string; cid: string }): any

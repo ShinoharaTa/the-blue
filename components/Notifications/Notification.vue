@@ -106,7 +106,7 @@ export default Vue.extend({
     },
     timeString: function () {
       // @ts-ignore
-      return this.$moment(this.record.record.createdAt).format(
+      return this.$moment(this.record.record.indexedAt).format(
         'YYYY/MM/DD HH:mm'
       )
     },

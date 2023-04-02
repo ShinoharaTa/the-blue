@@ -35,9 +35,9 @@
         <div v-if="images" class="image__outline mt-2">
           <common-images :images="images" />
         </div>
-        <div v-if="record" class="repost__outline mt-2">
+        <!-- <div v-if="record" class="repost__outline mt-2">
           <timeline-record :record="record" />
-        </div>
+        </div> -->
         <div class="d-flex align-items-center">
           <comment :reaction="note.post.replyCount" />
           <repost
@@ -135,7 +135,7 @@ export default Vue.extend({
       return this.note.reason ?? null
     },
     timeString: function () {
-      return this.$moment(this.note.post.record.createdAt).fromNow()
+      return this.$moment(this.note.post.indexedAt).fromNow()
     },
   },
 })

@@ -120,7 +120,7 @@ class atproto implements atProtoInterface {
     return success ? data : null
   }
   async getNotifications() {
-    const { success, data } = await this.agent.api.app.bsky.notification.list()
+    const { success, data } = await this.agent.api.app.bsky.notification.listNotifications()
     if (!success) {
     }
     return { notifications: data.notifications, cursor: data.cursor }
@@ -137,7 +137,7 @@ class atproto implements atProtoInterface {
     // reply?: ReplyRef;
   }) {
     return this.agent.api.app.bsky.feed.post.create(
-      { did: this.me.did },
+      { did: this.me.did, repo: "bsky.social" },
       {
         text: params.text,
         // entities: params.urls?.map(({ url, indices }) => ({
@@ -156,7 +156,7 @@ class atproto implements atProtoInterface {
   }
 
   async upImage(image: Blob) {
-    const { data, success } = await this.agent.api.com.atproto.blob.upload(
+    const { data, success } = await this.agent.api.com.atproto.repo.uploadBlob(
       new Uint8Array(await image.arrayBuffer()),
       { encoding: image.type }
     )
@@ -180,7 +180,7 @@ class atproto implements atProtoInterface {
   }
 
   async upvote(params: { uri: string; cid: string }) {
-    let res = this.agent.api.app.bsky.feed.vote.create(
+    let res = this.agent.api.app.bsky.feed.like.create(
       { did: this.me?.did },
       {
         subject: params,

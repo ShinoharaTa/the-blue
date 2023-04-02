@@ -16,6 +16,7 @@
         v-for="note in timeline"
         :key="note.id"
         @reload="singleReload(note.post.uri)"
+        @reply="postReply(note)"
       />
     </div>
     <div class="p-5"></div>
@@ -29,7 +30,7 @@
       </div>
     </div>
     <overlay v-if="post" position="top">
-      <postarea @close="close"></postarea>
+      <postarea @close="close" :reply="reply"></postarea>
     </overlay>
   </div>
 </template>
@@ -44,6 +45,7 @@ export default Vue.extend({
     return {
       timeline: [] as Array<any>,
       post: false as boolean,
+      reply: null as any,
     }
   },
   async beforeMount() {
@@ -71,8 +73,13 @@ export default Vue.extend({
       this.timeline[index].post = Object.assign({}, res)
     },
     checkNewPost: async function () {},
+    postReply: function(note: any) {
+      this.post = true;
+      this.reply = note;
+    },
     close: function (result: any) {
       this.post = false
+      this.reply = null;
       if (result) {
         console.log(true)
       }

@@ -39,7 +39,7 @@
           <timeline-record :record="record" />
         </div>
         <div class="d-flex align-items-center">
-          <comment :reaction="note.post.replyCount" />
+          <comment :reaction="note.post.replyCount" @reply="$emit('reply')"/>
           <repost
             :reaction-count="note.post.repostCount"
             :is-active="!!note.post.viewer.repost"

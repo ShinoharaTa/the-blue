@@ -89,6 +89,9 @@ interface VueData {
 }
 
 export default Vue.extend({
+  props: {
+    reply: {},
+  },
   components: { PostCounter },
   data(): VueData {
     return {
@@ -248,6 +251,22 @@ export default Vue.extend({
             })
           )
           params.embed = embed
+        }
+        if (this.reply) {
+          params.reply = {
+            root: {
+              // @ts-ignore
+              cid: this.reply.reply ? this.reply.reply.root.cid : this.reply.post.cid,
+              // @ts-ignore
+              uri: this.reply.reply ? this.reply.reply.root.uri : this.reply.post.uri,
+            },
+            parent: {
+              // @ts-ignore
+              cid: this.reply.post.cid,
+              // @ts-ignore
+              uri: this.reply.post.uri,
+            },
+          }
         }
         await this.$atp.post(params)
         this.post = ''

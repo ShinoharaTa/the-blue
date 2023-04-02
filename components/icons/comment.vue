@@ -1,5 +1,5 @@
 <template>
-  <button class="note__reaction">
+  <button class="note__reaction" @click="$emit('reply')">
     <fa-icon :icon="faIcon.icon" :class="faIcon.css" />
     <span>{{ reply }}</span>
   </button>

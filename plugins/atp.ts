@@ -6,6 +6,7 @@ import {
   AtpAgent,
   AtpSessionData,
 } from '@atproto/api'
+import { ReplyRef } from '@atproto/api/dist/client/types/app/bsky/feed/post'
 
 const COOKIE_KEY = {
   user_data: 'AozoraUserData',
@@ -136,7 +137,7 @@ class atproto implements atProtoInterface {
       | AppBskyEmbedExternal.Main
       | AppBskyEmbedRecord.Main
       | { $type: string; [k: string]: unknown }
-    // reply?: ReplyRef;
+    reply?: ReplyRef
   }) {
     return this.agent.api.app.bsky.feed.post.create(
       { repo: this.me.handle },
@@ -150,7 +151,7 @@ class atproto implements atProtoInterface {
         //   },
         //   value: url,
         // })),
-        // reply: null,
+        reply: params.reply,
         embed: params.embed,
         createdAt: new Date().toISOString(),
       }

@@ -171,7 +171,7 @@ class atproto implements atProtoInterface {
 
   async repost(params: { uri: string; cid: string }) {
     let res = this.agent.api.app.bsky.feed.repost.create(
-      { did: this.me?.did },
+      { repo: this.me.handle },
       {
         subject: params,
         direction: 'up',
@@ -183,7 +183,7 @@ class atproto implements atProtoInterface {
 
   async upvote(params: { uri: string; cid: string }) {
     let res = this.agent.api.app.bsky.feed.like.create(
-      { did: this.me?.did },
+      { repo: this.me.handle },
       {
         subject: params,
         direction: 'up',

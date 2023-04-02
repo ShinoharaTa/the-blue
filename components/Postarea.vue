@@ -9,6 +9,12 @@
         <div class="ms-2">Close</div>
       </button>
     </div>
+    <div v-if="reply">
+      <!-- <timeline-record :record="reply" /> -->
+      <div class="border rounded mb-2 p-1 bg-white">
+        {{ reply.post.record.text }}
+      </div>
+    </div>
     <div class="textarea">
       <textarea
         rows="9"
@@ -256,9 +262,9 @@ export default Vue.extend({
           params.reply = {
             root: {
               // @ts-ignore
-              cid: this.reply.reply ? this.reply.reply.root.cid : this.reply.post.cid,
+              cid: this.reply.reply? this.reply.reply.root.cid: this.reply.post.cid,
               // @ts-ignore
-              uri: this.reply.reply ? this.reply.reply.root.uri : this.reply.post.uri,
+              uri: this.reply.reply? this.reply.reply.root.uri: this.reply.post.uri,
             },
             parent: {
               // @ts-ignore

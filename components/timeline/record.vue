@@ -34,7 +34,7 @@ export default Vue.extend({
   },
   computed: {
     replaceText: function () {
-      const text = this.record.record.text
+      const text = this.record.value.text
       const regex = /(https?:\/\/[^\s]+)/g
       const processedText = text
         .replace(/[<>"'&]/g, (match: string) => {
@@ -61,7 +61,7 @@ export default Vue.extend({
       return processedText
     },
     timeString: function () {
-      return this.$moment(this.record.record.createdAt).format(
+      return this.$moment(this.record.value.createdAt).format(
         'YYYY/MM/DD HH:mm'
       )
     },

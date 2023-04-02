@@ -48,8 +48,8 @@
             @reload="$emit('reload', note.post.uri)"
           />
           <favorite
-            :reaction-count="note.post.upvoteCount"
-            :is-active="!!note.post.viewer.upvote"
+            :reaction-count="note.post.likeCount"
+            :is-active="!!note.post.viewer.like"
             :post-uri="note.post.uri"
             :post-cid="note.post.cid"
             @reload="$emit('reload', note.post.uri)"

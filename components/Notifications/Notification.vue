@@ -32,7 +32,7 @@
               </template>
               <span v-if="index < displayAuthors.length - 1">、</span>
             </span>
-            <span v-if="item.type === 'vote'">がふぁぼりました</span>
+            <span v-if="item.type === 'like'">がふぁぼりました</span>
             <span v-else-if="item.type === 'repost'">がリポりました</span>
           </div>
         </div>
@@ -116,7 +116,7 @@ export default Vue.extend({
         case 'repost':
           ret = ['fas', 'retweet']
           break;
-        case 'vote':
+        case 'like':
           ret = ['fas', 'star']
           break;
       }
@@ -143,7 +143,7 @@ export default Vue.extend({
   font-size: 0.8rem;
 }
 
-.vote {
+.like {
   color: #e2943b;
   background-color: #e2943b40;
   border-radius: 7px;

@@ -162,11 +162,9 @@ class atproto implements atProtoInterface {
       new Uint8Array(await image.arrayBuffer()),
       { encoding: image.type }
     )
+    console.log(data)
     if (!success) return null
-    return {
-      cid: data.cid,
-      mimeType: image.type,
-    }
+    return data.blob
   }
 
   async repost(params: { uri: string; cid: string }) {

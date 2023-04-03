@@ -16,22 +16,24 @@
         <div class="">{{ timeString }}</div>
       </div>
     </div>
-    <div class="mt-1" v-html="replaceText "></div>
-    <!-- {{ record }} -->
+    <div class="mt-1" v-html="replaceText"></div>
+    <div v-if="images" class="mt-2">
+      <common-images :images="images" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+import CommonImages from '@/components/common/images/minisize.vue'
 
 export default Vue.extend({
+  components: {
+    CommonImages,
+  },
   props: {
     record: {
-      type: Object,
-      default: () => {},
-    },
-    images: {
       type: Object,
       default: () => {},
     },
@@ -68,6 +70,13 @@ export default Vue.extend({
       return this.$moment(this.record.value.createdAt).format(
         'YYYY/MM/DD HH:mm'
       )
+    },
+    images: function () {
+      let embed = null
+      embed = this.record.embeds?.find(
+        (item: any) => item.$type === 'app.bsky.embed.images#view'
+      )
+      return embed ? embed.images : null
     },
   },
   methods: {

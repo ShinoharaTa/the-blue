@@ -35,11 +35,11 @@
         <div v-if="images" class="image__outline mt-2">
           <common-images :images="images" />
         </div>
-        <div v-if="embedRecord" class="repost__outline mt-2">
-          <timeline-record :record="embedRecord" :images="embedImages" />
+        <div v-if="record" class="repost__outline mt-2">
+          <timeline-record :record="record" />
         </div>
         <div class="d-flex align-items-center">
-          <comment :reaction="note.post.replyCount" @reply="$emit('reply')"/>
+          <comment :reaction="note.post.replyCount" @reply="$emit('reply')" />
           <repost
             :reaction-count="note.post.repostCount"
             :is-active="!!note.post.viewer.repost"
@@ -126,23 +126,26 @@ export default Vue.extend({
       return images
     },
     images: function () {
-      return this.note.post.embed?.images ?? null
-    },
-    embedRecord: function () {
-      let embed = null;
-      if (this.note.post.embed?.$type === "app.bsky.embed.recordWithMedia#view" ) {
-        embed = this.note.post.embed.record.record;
-      } else if (this.note.post.embed?.$type === "app.bsky.embed.record#view" ) {
-        embed = this.note.post.embed.record;
+      let embed = null
+      if (
+        this.note.post.embed?.$type === 'app.bsky.embed.recordWithMedia#view'
+      ) {
+        embed = this.note.post.embed.media.images
+      } else if (this.note.post.embed?.$type === 'app.bsky.embed.images#view') {
+        embed = this.note.post.embed.images
       }
-      return embed;
+      return embed
     },
-    embedImages: function () {
-      let embed = null;
-      if (this.note.post.embed?.$type === "app.bsky.embed.recordWithMedia#view" ) {
-        embed = this.note.post.embed.record.images;
+    record: function () {
+      let embed = null
+      if (
+        this.note.post.embed?.$type === 'app.bsky.embed.recordWithMedia#view'
+      ) {
+        embed = this.note.post.embed.record.record
+      } else if (this.note.post.embed?.$type === 'app.bsky.embed.record#view') {
+        embed = this.note.post.embed.record
       }
-      return embed;
+      return embed
     },
     isRepost: function () {
       return this.note.reason ?? null

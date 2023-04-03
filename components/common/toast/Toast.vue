@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto my-2">
-    <div class="mx-3 infomation glass" :class="toast.status">
+    <div class="mx-3 infomation glass" :class="toast.status" @click="remove">
       {{ toast.message }}
     </div>
   </div>
@@ -22,7 +22,11 @@ export default Vue.extend({
       },
     },
   },
-  methods: {},
+  methods: {
+    remove: function () {
+      this.$store.commit('removeToast', { id: this.toast.id })
+    },
+  },
   created() {
     setInterval(() => {
       this.$store.commit('removeToast', { id: this.toast.id })

@@ -58,7 +58,7 @@ export default Vue.extend({
         message: message[this.count].text,
         status: message[this.count].color,
       })
-      if (this.count < message.length) this.count++
+      if (this.count < message.length - 1) this.count++
     },
   },
 })

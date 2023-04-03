@@ -2,7 +2,11 @@
   <div class="image-layout" :class="layoutClass">
     <div v-for="(image, index) in images" :key="index" class="image-wrapper">
       <div class="image">
-        <img :src="image.thumb" class="object-cover" />
+        <img
+          :src="image.thumb"
+          class="object-cover"
+          @click="setLightboxImages({ images: images, page: 1 })"
+        />
       </div>
     </div>
   </div>
@@ -14,12 +18,12 @@ import { mapMutations } from 'vuex'
 
 export default Vue.extend({
   props: {
-    images: []
+    images: [],
   },
   computed: {
     layoutClass() {
       // @ts-ignore
-      return `layout-${this.images.length}`;
+      return `layout-${this.images.length}`
     },
   },
   methods: {

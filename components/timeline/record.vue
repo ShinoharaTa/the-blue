@@ -31,6 +31,10 @@ export default Vue.extend({
       type: Object,
       default: () => {},
     },
+    images: {
+      type: Object,
+      default: () => {},
+    },
   },
   computed: {
     replaceText: function () {

@@ -35,8 +35,8 @@
         <div v-if="images" class="image__outline mt-2">
           <common-images :images="images" />
         </div>
-        <div v-if="record" class="repost__outline mt-2">
-          <timeline-record :record="record" />
+        <div v-if="embedRecord" class="repost__outline mt-2">
+          <timeline-record :record="embedRecord" :images="embedImages" />
         </div>
         <div class="d-flex align-items-center">
           <comment :reaction="note.post.replyCount" @reply="$emit('reply')"/>
@@ -128,8 +128,21 @@ export default Vue.extend({
     images: function () {
       return this.note.post.embed?.images ?? null
     },
-    record: function () {
-      return this.note.post.embed?.record ?? null
+    embedRecord: function () {
+      let embed = null;
+      if (this.note.post.embed?.$type === "app.bsky.embed.recordWithMedia#view" ) {
+        embed = this.note.post.embed.record.record;
+      } else if (this.note.post.embed?.$type === "app.bsky.embed.record#view" ) {
+        embed = this.note.post.embed.record;
+      }
+      return embed;
+    },
+    embedImages: function () {
+      let embed = null;
+      if (this.note.post.embed?.$type === "app.bsky.embed.recordWithMedia#view" ) {
+        embed = this.note.post.embed.record.images;
+      }
+      return embed;
     },
     isRepost: function () {
       return this.note.reason ?? null

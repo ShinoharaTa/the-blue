@@ -2,22 +2,22 @@
   <div class="fixed-bottom p-2 px-4 glass">
     <div class="row max-width mx-auto">
       <div class="col">
-        <div class="footer-icon active">
+        <nuxt-link to="/" class="footer-icon" :class="{ active: pageRoot('index') }">
           <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
-        </div>
+        </nuxt-link>
       </div>
-      <div class="col">
-        <div class="footer-icon">
+      <!-- <div class="col">
+        <div class="footer-icon" :class="{ active: pageRoot('images') }">
           <fa-icon :icon="['fas', 'image']" class="fa-lg"></fa-icon>
         </div>
-      </div>
+      </div> -->
       <div class="col">
-        <div class="footer-icon">
+        <nuxt-link to="notification" class="footer-icon" :class="{ active: pageRoot('notification') }">
           <fa-icon :icon="['fas', 'bell']" class="fa-lg"></fa-icon>
-        </div>
+        </nuxt-link>
       </div>
       <div class="col">
-        <div class="footer-icon">
+        <div class="footer-icon" :class="{ active: pageRoot('setting') }">
           <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
         </div>
       </div>
@@ -29,7 +29,13 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({})
+export default Vue.extend({
+  methods: {
+    pageRoot: function (page: string) {
+      return page === this.$route.name
+    },
+  },
+})
 </script>
 <style lang="scss" scoped>
 .footer-icon {
@@ -41,6 +47,7 @@ export default Vue.extend({})
   background: #fff;
   justify-content: center;
   align-items: center;
+  color: #000000;
   &.active {
     background: #fff;
     border: 2px solid #0089a7;

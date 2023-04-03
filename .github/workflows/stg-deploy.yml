@@ -22,9 +22,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # - name: nuxt setup
-      #   run: echo "${{ secrets.ENV_PROD }}" > .env
-      #   working-directory: ./
+      - name: nuxt setup
+        run: echo "${{ secrets.ENV_STG }}" > .env
+        working-directory: ./
+
+      - name: Set BUILDTIME in .env
+        run: echo "BUILDTIME=$(date +%s)" >> .env
+        working-directory: ./
 
       - name: nuxt generate
         run: |

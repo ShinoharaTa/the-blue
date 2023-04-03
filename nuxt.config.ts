@@ -8,6 +8,7 @@ const nuxtConfig: NuxtConfig = {
 
   publicRuntimeConfig: {
     env: process.env.ENV || null,
+    buildtime: process.env.BUILDTIME || null,
     email: process.env.TEST_EMAIL,
     pass: process.env.TEST_PASSWORD,
   },

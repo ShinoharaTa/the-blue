@@ -1,7 +1,10 @@
 <template>
   <nav class="navbar navbar-light glass sticky-top">
     <div class="container-fluid max-width">
-      <a class="navbar-brand" href=""></a>
+      <!-- <a class="navbar-brand" href=""></a> -->
+      <div>
+        {{ this.$config.env + this.$config.buildtime }}
+      </div>
       <div class="">
         <slot />
       </div>

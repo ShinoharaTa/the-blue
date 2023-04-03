@@ -16,7 +16,7 @@
         <div class="">{{ timeString }}</div>
       </div>
     </div>
-    <div class="mt-1">{{ replaceText }}</div>
+    <div class="mt-1" v-html="replaceText "></div>
     <!-- {{ record }} -->
   </div>
 </template>

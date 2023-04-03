@@ -1,7 +1,7 @@
 <template>
   <button class="note__reaction" @click="$emit('reply')">
     <fa-icon :icon="faIcon.icon" :class="faIcon.css" />
-    <span>{{ reply }}</span>
+    <span>{{ reaction }}</span>
   </button>
 </template>
 
@@ -15,7 +15,7 @@ type iconType = {
 
 export default Vue.extend({
   props: {
-    reply: {
+    reaction: {
       type: Number,
       default: 0,
     },

@@ -34,7 +34,13 @@
             </span>
             <span v-if="item.type === 'like'">がふぁぼりました</span>
             <span v-else-if="item.type === 'repost'">がリポりました</span>
+            <span v-else-if="item.type === 'reply'">が変身しました</span>
           </div>
+          <div
+            v-if="item.type === 'reply'"
+            v-html="replaceReplyText"
+            class="mt-2"
+          ></div>
         </div>
       </div>
       <div class="repost__outline mt-1">
@@ -65,7 +71,10 @@ export default Vue.extend({
   async beforeMount() {
     try {
       this.record = await this.$atp.getPost({
-        uri: this.item.record.subject.uri,
+        uri:
+          this.item.type === 'reply'
+            ? this.item.record.reply.parent.uri
+            : this.item.record.subject.uri,
       })
     } catch (error) {}
     console.log(this.record)
@@ -104,6 +113,34 @@ export default Vue.extend({
         .replace(/\n/g, '<br/>')
       return processedText
     },
+    replaceReplyText: function () {
+      // @ts-ignore
+      const text = this.item.record.text
+      const regex = /(https?:\/\/[^\s]+)/g
+      const processedText = text
+        .replace(/[<>"'&]/g, (match: string) => {
+          switch (match) {
+            case '<':
+              return '&lt;'
+            case '>':
+              return '&gt;'
+            case '"':
+              return '&quot;'
+            case "'":
+              return '&#39;'
+            case '&':
+              return '&amp;'
+          }
+          return match
+        })
+        // .replace(regex, (url: string) => {
+        //   const shortUrl = url.length > 32 ? url.slice(0, 32) + '...' : url
+        //   return ` <a href="${url}">${shortUrl}</a> `
+        // })
+        .replace(/\n{3,}/g, '<br/><br/>')
+        .replace(/\n/g, '<br/>')
+      return processedText
+    },
     timeString: function () {
       // @ts-ignore
       return this.$moment(this.record.record.indexedAt).format(
@@ -115,10 +152,13 @@ export default Vue.extend({
       switch (this.item.type) {
         case 'repost':
           ret = ['fas', 'retweet']
-          break;
+          break
         case 'like':
           ret = ['fas', 'star']
-          break;
+          break
+        case 'reply':
+          ret = ['fas', 'reply']
+          break
       }
       return ret
     },
@@ -152,6 +192,12 @@ export default Vue.extend({
 .repost {
   color: #7ba23f;
   background-color: #7ba23f40;
+  border-radius: 7px;
+}
+
+.reply {
+  color: #1e88a8;
+  background-color: #1e88a840;
   border-radius: 7px;
 }
 

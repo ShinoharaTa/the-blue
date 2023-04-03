@@ -46,7 +46,7 @@ export default Vue.extend({
         this.notifications = {}
         data.notifications.forEach((item: any) => {
           if (item.reason === 'like' || item.reason === 'repost') {
-            console.log(item)
+            // console.log(item)
             const cid = item.record.subject.cid
             const type = item.reason
             const record = item.record
@@ -61,8 +61,23 @@ export default Vue.extend({
               }
             }
             this.notifications[keyName].author.push(author)
+          } else if (item.reason === 'reply') {
+            const cid = item.record.reply.parent.cid
+            const type = item.reason
+            const record = item.record
+            const author = item.author
+            const keyName = cid + '_' + type + '_' + item.cid
+            if(!(keyName in this.notifications)){
+              this.notifications[keyName] = {
+                cid: cid,
+                type: type,
+                record: record,
+                author: [],
+              }
+            }
+            this.notifications[keyName].author.push(author)
           } else {
-            console.log(item)
+            // console.log(item)
           }
         })
         this.cursor = data.cursor

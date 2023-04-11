@@ -16,7 +16,7 @@
           type="text"
           v-model="identifier"
           class="form-control"
-          placeholder="星屑旅団の使者"
+          placeholder="青空幻影の識別符号"
         />
       </div>
       <div class="mt-3">
@@ -24,7 +24,7 @@
           type="password"
           v-model="password"
           class="form-control"
-          placeholder="夢幻暗号の門扉"
+          placeholder="夢幻暗号封印の言霊"
         />
       </div>
       <div class="mt-3 text-center form-text text-danger">

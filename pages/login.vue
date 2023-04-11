@@ -16,7 +16,7 @@
           type="text"
           v-model="identifier"
           class="form-control"
-          placeholder="email"
+          placeholder="星屑旅団の使者"
         />
       </div>
       <div class="mt-3">
@@ -24,7 +24,7 @@
           type="password"
           v-model="password"
           class="form-control"
-          placeholder="password"
+          placeholder="夢幻暗号の門扉"
         />
       </div>
       <div class="mt-3 text-center form-text text-danger">

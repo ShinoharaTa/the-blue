@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts">
-import { Autoplay } from 'swiper'
 import Vue from 'vue'
 import Notification from '~/components/Notifications/Notification.vue'
 
@@ -24,6 +23,7 @@ export default Vue.extend({
   components: {
     Notification,
   },
+  middleware: ['session'],
   data() {
     return {
       notifications: {} as Notifications,

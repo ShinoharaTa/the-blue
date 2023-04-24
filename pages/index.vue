@@ -41,6 +41,7 @@ import Note from '~/components/timeline/note.vue'
 
 export default Vue.extend({
   components: { Note },
+  middleware: ["session"],
   data() {
     return {
       timeline: [] as Array<any>,
@@ -49,7 +50,7 @@ export default Vue.extend({
     }
   },
   async beforeMount() {
-    await this.$atp.hasSession()
+    // await this.$atp.hasSession()
     await this.getTimeline()
   },
   created() {

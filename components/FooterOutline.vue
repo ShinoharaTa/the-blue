@@ -2,7 +2,11 @@
   <div class="fixed-bottom p-2 px-4 glass">
     <div class="row max-width mx-auto">
       <div class="col">
-        <nuxt-link to="/" class="footer-icon" :class="{ active: pageRoot('index') }">
+        <nuxt-link
+          to="/"
+          class="footer-icon"
+          :class="{ active: pageRoot('index') }"
+        >
           <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
         </nuxt-link>
       </div>
@@ -12,14 +16,23 @@
         </div>
       </div> -->
       <div class="col">
-        <nuxt-link to="notification" class="footer-icon" :class="{ active: pageRoot('notification') }">
+        <nuxt-link
+          to="notification"
+          class="footer-icon"
+          :class="{ active: pageRoot('notification') }"
+        >
           <fa-icon :icon="['fas', 'bell']" class="fa-lg"></fa-icon>
         </nuxt-link>
       </div>
       <div class="col">
-        <div class="footer-icon" :class="{ active: pageRoot('setting') }">
-          <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon>
-        </div>
+        <nuxt-link
+          to="setting"
+          class="footer-icon"
+          :class="{ active: pageRoot('setting') }"
+        >
+          <img :src="user?.avatar" class="img-fluid" />
+          <!-- <fa-icon :icon="['fas', 'house']" class="fa-lg"></fa-icon> -->
+        </nuxt-link>
       </div>
     </div>
     <div class="ios-padding"></div>
@@ -28,12 +41,18 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   methods: {
     pageRoot: function (page: string) {
       return page === this.$route.name
     },
+  },
+  computed: {
+    ...mapGetters({
+      user: 'user',
+    }),
   },
 })
 </script>
@@ -42,6 +61,7 @@ export default Vue.extend({
   width: 48px;
   height: 48px;
   border-radius: 50%;
+  overflow: hidden;
   display: flex;
   border: 2px solid #fff;
   background: #fff;

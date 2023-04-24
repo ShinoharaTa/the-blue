@@ -6,6 +6,7 @@ export const state = () => ({
   loading: false as boolean,
   lightboxImages: null as Array<Image> | null,
   toasts: [] as Array<Toast>,
+  user: null as Object | null,
 })
 
 export type RootState = ReturnType<typeof state>
@@ -23,6 +24,13 @@ export const mutations = {
   },
   setLoading(state: RootState, status: boolean) {
     state.loading = status
+  },
+  setUser(state: RootState, params: {user: object}) {
+    state.user = params.user
+    console.log(params.user)
+  },
+  clearUser(state: RootState) {
+    state.user = null
   },
   addToast(
     state: RootState,
@@ -57,4 +65,5 @@ export const getters = {
   lightboxImages: (state: RootState) => state.lightboxImages,
   toasts: (state: RootState) => state.toasts,
   loading: (state: RootState) => state.loading,
+  user: (state: RootState) => state.user,
 }

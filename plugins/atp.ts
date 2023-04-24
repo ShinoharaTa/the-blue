@@ -47,14 +47,6 @@ class atproto implements atProtoInterface {
 
   async login(identifier: string, password: string, service: string) {
     try {
-      // this.agent = new AtpAgent({
-      //   service: 'https://' + service,
-      //   persistSession: (evt, sess) => {
-      //     this.ctx.app.$cookies.set(COOKIE_KEY.user_data, sess, {
-      //       maxAge: 60 * 60 * 24 * 7,
-      //     })
-      //   },
-      // })
       const { success, data } = await this.agent.login({
         identifier: identifier,
         password: password,
@@ -68,12 +60,19 @@ class atproto implements atProtoInterface {
       return null
     }
   }
+  logout() {
+    this.me = null
+    this.ctx.app.$cookies.remove(COOKIE_KEY.service)
+    this.ctx.app.$cookies.remove(COOKIE_KEY.user_data)
+    return null
+  }
   async hasSession() {
     const session = (() => {
       try {
         const sessStr: AtpSessionData = this.ctx.app.$cookies.get(
           COOKIE_KEY.user_data
         )
+        // console.log(sessStr)
         if (!sessStr) {
           return null
         }
@@ -83,16 +82,14 @@ class atproto implements atProtoInterface {
       }
     })()
     if (!session) {
-      return { success: false }
+      return null;
     }
 
     const { success, data } = await this.agent.resumeSession(session)
     try {
       this.me = data
-      console.log(data)
       return success ? data : null
     } catch {
-      this.ctx.app.$router.push('/login')
       return null
     }
   }
@@ -107,6 +104,11 @@ class atproto implements atProtoInterface {
     }
   }
 
+  async getProfile(params: { actor: string }) {
+    const response = await this.agent.api.app.bsky.actor.getProfile(params)
+    // console.log(response);
+    return response;
+  }
   async getPost(params: { uri: string }) {
     const response = await this.getPostThread({ ...params, depth: 0 })
     if (!response?.thread.notFound) {
@@ -133,10 +135,10 @@ class atproto implements atProtoInterface {
     text: string
     urls?: { url: string; indices: [number, number] }[]
     embed?:
-      | AppBskyEmbedImages.Main
-      | AppBskyEmbedExternal.Main
-      | AppBskyEmbedRecord.Main
-      | { $type: string; [k: string]: unknown }
+    | AppBskyEmbedImages.Main
+    | AppBskyEmbedExternal.Main
+    | AppBskyEmbedRecord.Main
+    | { $type: string;[k: string]: unknown }
     reply?: ReplyRef
   }) {
     return this.agent.api.app.bsky.feed.post.create(
@@ -202,8 +204,10 @@ export default atp
 
 export interface atProtoInterface {
   login(identifier: string, password: string, service: string): any
+  logout(): void
   hasSession(): any
   getTimeline(params: { limit?: number; cursor?: string }): any
+  getProfile(params: { actor: string }): any
   getPost(params: { uri: string }): any
   getPostThread(params: { uri: string; depth?: number }): any
   getNotifications(): any
@@ -211,10 +215,10 @@ export interface atProtoInterface {
     text: string
     urls?: { url: string; indices: [number, number] }[]
     embed?:
-      | AppBskyEmbedImages.Main
-      | AppBskyEmbedExternal.Main
-      | AppBskyEmbedRecord.Main
-      | { $type: string; [k: string]: unknown }
+    | AppBskyEmbedImages.Main
+    | AppBskyEmbedExternal.Main
+    | AppBskyEmbedRecord.Main
+    | { $type: string;[k: string]: unknown }
   }): any
   upImage(image: Blob): any
   repost(params: { uri: string; cid: string }): any
